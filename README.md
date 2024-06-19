@@ -1,5 +1,71 @@
 # EpicBuy
 [LiveLink](https://epicbuy.onrender.com)
+
+# Features List - EpicBuy
+
+## Products
+- View all available products in the store.
+- View detailed information about a single product, including its name, description, price, average rating, and images.
+- Create a new product with a name, description, price, and preview image.
+- Update product details including name, description, price, and preview image.
+- Delete a product.
+
+## Reviews
+- View all reviews on a product.
+- Create a review for a product with a rating and comment.
+- Update a review for a product.
+- Delete a review from a product.
+
+## Shopping Cart
+- View all products added to the shopping cart.
+- Add products to the shopping cart.
+- Remove products from the shopping cart.
+- Perform a transaction to complete a purchase.
+
+## Favorites
+- View all favorite products.
+- Add products to the favorites.
+- Remove products from the favorites.
+
+## Images
+- View a preview image of a product.
+- View additional images of a product upon clicking on the preview image.
+- Add additional images to a product.
+- Delete additional images from a product.
+
+# User Stories
+
+## Products
+- Users should be able to view all products available in the store.
+- Users should be able to view details of a single product.
+- Users should be able to create a new product with a name, description, price, and preview image.
+- Users should be able to update their product details including name, description, price, and preview image.
+- Users should be able to delete their product.
+
+## Reviews
+- Users should be able to view all reviews on a product.
+- Users should be able to create a review for a product with a rating and comment.
+- Users should be able to update their review for a product.
+- Users should be able to delete their review from a product.
+
+## Shopping Cart
+- Users should be able to view all products added to their cart.
+- Users should be able to add products to their shopping cart.
+- Users should be able to remove products from their shopping cart.
+- Users should be able to perform a transaction to complete their purchase.
+
+## Favorites
+- Users should be able to view all of their favorite products.
+- Users should be able to add products to their favorites.
+- Users should be able to remove products from their favorites.
+
+## Images
+- Users should be able to view a preview image of a product.
+- Users should be able to view additional images of a product upon clicking on the preview image.
+- Users should be able to add additional images to their product.
+- Users should be able to delete additional images from their product.
+
+
 ## Database Schema Design
 ![db-schema](./images/DB_SCHEMA.png)
 
@@ -1311,35 +1377,10 @@ Removes a product from the current user's favorites.
     }
     ```
 
-# User Stories
-
-## Products
-- A user should be able to view all products available in the store.
-- A user should be able to view details of a single product.
-- A user should be able to create a new product with a name, description, price, and preview image.
-- A user should be able to update their product details including name, description, price, and preview image.
-- A user should be able to delete their product.
-
-## Reviews
-- A user should be able to view all reviews on a product.
-- A user should be able to create a review for a product with a rating and comment.
-- A user should be able to update their review for a product.
-- A user should be able to delete their review from a product.
-
-## Shopping Cart
-- A user should be able to view all products added to their cart.
-- A user should be able to add products to their shopping cart.
-- A user should be able to remove products from their shopping cart.
-- A user should be able to perform a transaction to complete their purchase.
-
-## Favorites
-- A user should be able to view all of their favorite products.
-- A user should be able to add products to their favorites.
-- A user should be able to remove products from their favorites.
-
-## Images
-- A user should be able to view a preview image of a product.
-- A user should be able to view additional images of a product upon clicking on the preview image.
-- A user should be able to add additional images to their product.
-- A user should be able to delete additional images from their product.
+## Database Schema Design
+![homepage](./images/wireframe/homepage.png)
+![products](./images/wireframe/products.png)
+![purchases](./images/wireframe/purchases.png)
+![details](./images/wireframe/details.png)
+![favorites](./images/wireframe/details.png)
 # EpicBuy
