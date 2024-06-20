@@ -2,21 +2,21 @@ from flask import Blueprint, request, jsonify
 from app.models import db, Product, Image
 from flask_login import login_required, current_user
 
-products_routes = Blueprint('products', __name__)
+product_routes = Blueprint('products', __name__)
 
-@products_routes.route('/', methods=['GET'])
+@product_routes.route('/', methods=['GET'])
 def get_all_products():
     products = Product.query.all()
     return jsonify([product.to_dict() for product in products]), 200
 
-@products_routes.route('/<int:id>', methods=['GET'])
+@product_routes.route('/<int:id>', methods=['GET'])
 def get_product(id):
     product = Product.query.get(id)
     if not product:
         return jsonify({"message": "Product couldn't be found"}), 404
     return jsonify(product.to_dict()), 200
 
-@products_routes.route('/', methods=['POST'])
+@product_routes.route('/', methods=['POST'])
 @login_required
 def create_product():
     data = request.get_json()
@@ -31,7 +31,7 @@ def create_product():
     db.session.commit()
     return jsonify(product.to_dict()), 201
 
-@products_routes.route('/<int:id>', methods=['PUT'])
+@product_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_product(id):
     data = request.get_json()
@@ -49,7 +49,7 @@ def update_product(id):
     db.session.commit()
     return jsonify(product.to_dict()), 200
 
-@products_routes.route('/<int:id>', methods=['DELETE'])
+@product_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_product(id):
     product = Product.query.get(id)
@@ -62,7 +62,7 @@ def delete_product(id):
     db.session.commit()
     return jsonify({"message": "Successfully deleted"}), 200
 
-@products_routes.route('/<int:product_id>/images', methods=['POST'])
+@product_routes.route('/<int:product_id>/images', methods=['POST'])
 @login_required
 def add_image_to_product(product_id):
     data = request.get_json()
