@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -13,12 +13,15 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
     products = db.relationship('Product', back_populates='owner', cascade='all, delete-orphan')
     reviews = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
-    cart_items = db.relationship('CartItem', back_populates='user', cascade='all, delete-orphan')
+    cart = db.relationship('Cart', back_populates='user', uselist=False, cascade='all, delete-orphan')
     favorites = db.relationship('Favorite', back_populates='user', cascade='all, delete-orphan')
+    purchases = db.relationship('Purchase', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
@@ -38,7 +41,6 @@ class User(db.Model, UserMixin):
             'email': self.email
         }
 
-
 class Product(db.Model):
     __tablename__ = 'products'
 
@@ -50,9 +52,9 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
+    preview_img_url = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    preview_image_url = db.Column(db.String(255), nullable=True)
 
     # Relationships
     owner = db.relationship('User', back_populates='products')
@@ -60,6 +62,7 @@ class Product(db.Model):
     reviews = db.relationship('Review', back_populates='product', cascade='all, delete-orphan')
     cart_items = db.relationship('CartItem', back_populates='product', cascade='all, delete-orphan')
     favorites = db.relationship('Favorite', back_populates='product', cascade='all, delete-orphan')
+    purchases = db.relationship('Purchase', back_populates='product', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {
@@ -68,13 +71,12 @@ class Product(db.Model):
             'name': self.name,
             'description': self.description,
             'price': self.price,
+            'preview_img_url': self.preview_img_url,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'preview_image_url': self.preview_image_url,
             'images': [image.to_dict() for image in self.images],
             'reviews': [review.to_dict() for review in self.reviews]
         }
-
 
 class Image(db.Model):
     __tablename__ = 'images'
@@ -84,7 +86,7 @@ class Image(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
-    url = db.Column(db.String(255), nullable=False)
+    img_url = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -95,11 +97,10 @@ class Image(db.Model):
         return {
             'id': self.id,
             'product_id': self.product_id,
-            'url': self.url,
+            'img_url': self.img_url,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
-
 
 class Review(db.Model):
     __tablename__ = 'reviews'
@@ -111,7 +112,7 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
     review = db.Column(db.Text, nullable=False)
-    stars = db.Column(db.Integer, nullable=False)
+    avg_rating = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -125,11 +126,34 @@ class Review(db.Model):
             'user_id': self.user_id,
             'product_id': self.product_id,
             'review': self.review,
-            'stars': self.stars,
+            'avg_rating': self.avg_rating,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
 
+class Cart(db.Model):
+    __tablename__ = 'carts'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    user = db.relationship('User', back_populates='cart')
+    cart_items = db.relationship('CartItem', back_populates='cart', cascade='all, delete-orphan')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'cart_items': [item.to_dict() for item in self.cart_items]
+        }
 
 class CartItem(db.Model):
     __tablename__ = 'cart_items'
@@ -138,26 +162,26 @@ class CartItem(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    cart_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('carts.id')), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
-    user = db.relationship('User', back_populates='cart_items')
+    cart = db.relationship('Cart', back_populates='cart_items')
     product = db.relationship('Product', back_populates='cart_items')
 
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
+            'cart_id': self.cart_id,
             'product_id': self.product_id,
             'quantity': self.quantity,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'product': self.product.to_dict()
         }
-
 
 class Favorite(db.Model):
     __tablename__ = 'favorites'
@@ -183,3 +207,34 @@ class Favorite(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
+
+class Purchase(db.Model):
+    __tablename__ = 'purchases'
+
+    if environment == "production":
+        __table_args__ = {'schema': SCHEMA}
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('products.id')), nullable=False)
+    quantity = db.Column(db.Integer, nullable=False)
+    price_at_purchase = db.Column(db.Float, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    user = db.relationship('User', back_populates='purchases')
+    product = db.relationship('Product', back_populates='purchases')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'product_id': self.product_id,
+            'quantity': self.quantity,
+            'price_at_purchase': self.price_at_purchase,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'product': self.product.to_dict()
+        }
+
