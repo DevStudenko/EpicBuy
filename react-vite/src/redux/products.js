@@ -1,3 +1,4 @@
+import { createSelector } from "reselect";
 
 //! --------------------------------------------------------------------
 //*                          Action Types
@@ -76,7 +77,7 @@ export const deleteProductThunk = (product) => async (dispatch) => {
             header: { "Content-Type": "application/json" },
         });
         if (response.ok) {
-            dispatch(action(DELETE, server));
+            dispatch(action(DELETE, product));
         }
     } catch (error) {
         console.log(error);
@@ -85,7 +86,7 @@ export const deleteProductThunk = (product) => async (dispatch) => {
 
 //! --------------------------------------------------------------------
 
-export const updateServerThunk = (product) => async (dispatch) => {
+export const updateProductThunk = (product) => async (dispatch) => {
     try {
         const response = await fetch(`/api/products/${product.id}`, {
             method: "PUT",
@@ -108,15 +109,15 @@ export const updateServerThunk = (product) => async (dispatch) => {
 export const getProductsArray = createSelector(
     (state) => state.product,
     (product) => {
-      let arr = [];
-      for (const key in product) {
-        if (Number.isInteger(Number(key))) {
-          arr.push(product[key]);
+        let arr = [];
+        for (const key in product) {
+            if (Number.isInteger(Number(key))) {
+                arr.push(product[key]);
+            }
         }
-      }
-      return arr;
+        return arr;
     }
-  );
+);
 
 //! --------------------------------------------------------------------
 //*                            Reducer

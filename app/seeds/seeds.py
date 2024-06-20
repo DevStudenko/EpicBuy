@@ -22,9 +22,9 @@ def create_seeder():
 
     ## SEED PRODUCTS
     product_list = [
-        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 999.00, 'preview_img_url': 'https://unsplash.com/photos/a-close-up-of-a-cell-phone-on-a-table-0ydMz3p5s3M'},
-        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 1999.00, 'preview_img_url': 'https://unsplash.com/photos/slightly-opened-silver-macbook-mP7aPSUm7aE'},
-        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 399.00, 'preview_img_url': 'https://unsplash.com/photos/black-g208-smart-watch-QhF3YGsDrYk'},
+        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 999.00, 'preview_img_url': 'https://images.unsplash.com/photo-1638038772924-ef79cce2426d'},
+        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 1999.00, 'preview_img_url': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8'},
+        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 399.00, 'preview_img_url': 'https://images.unsplash.com/photo-1551816230-ef5deaed4a26'},
     ]
 
     for product_data in product_list:
@@ -40,11 +40,11 @@ def create_seeder():
 
     ## SEED IMAGES
     image_list = [
-        {'product_id': 1, 'img_url': 'https://unsplash.com/photos/a-close-up-of-a-cell-phone-with-a-camera-qJZqXSBr7_s'},
-        {'product_id': 1, 'img_url': 'https://unsplash.com/photos/a-close-up-of-an-iphone-on-a-table-Mi5tb_R1zzw'},
-        {'product_id': 2, 'img_url': 'https://unsplash.com/photos/black-and-gray-laptop-computer-ykI7BeSWgMo'},
-        {'product_id': 2, 'img_url': 'https://unsplash.com/photos/turned-on-laptop-on-table-HyTwtsk8XqA'},
-        {'product_id': 3, 'img_url': 'https://unsplash.com/photos/space-gray-aluminium-apple-watch-gtQddXwuS18'},
+        {'product_id': 1, 'img_url': 'https://images.unsplash.com/photo-1632582593957-e28f748ba619'},
+        {'product_id': 1, 'img_url': 'https://images.unsplash.com/photo-1647503380147-e075b24f4cbe'},
+        {'product_id': 2, 'img_url': 'https://images.unsplash.com/photo-1580522154071-c6ca47a859ad'},
+        {'product_id': 2, 'img_url': 'https://images.unsplash.com/photo-1542393545-10f5cde2c810'},
+        {'product_id': 3, 'img_url': 'https://images.unsplash.com/photo-1542541864-4abf21a55761'},
     ]
 
     for image_data in image_list:
