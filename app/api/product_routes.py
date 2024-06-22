@@ -16,7 +16,7 @@ def get_product(id):
         return jsonify({"message": "Product couldn't be found"}), 404
     return jsonify(product.to_dict()), 200
 
-@product_routes.route('/', methods=['POST'])
+@product_routes.route("", methods=['POST'])
 @login_required
 def create_product():
     data = request.get_json()
