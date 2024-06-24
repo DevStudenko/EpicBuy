@@ -173,6 +173,15 @@ class CartItem(db.Model):
     product = db.relationship('Product', back_populates='cart_items')
 
     def to_dict(self):
+        product_dict = {
+            'id': self.product.id,
+            'name': self.product.name,
+            'description': self.product.description,
+            'price': self.product.price,
+            'preview_img_url': self.product.preview_img_url,
+            'created_at': self.product.created_at,
+            'updated_at': self.product.updated_at
+        }
         return {
             'id': self.id,
             'cart_id': self.cart_id,
@@ -180,7 +189,7 @@ class CartItem(db.Model):
             'quantity': self.quantity,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'product': self.product.to_dict()
+            'product': product_dict
         }
 
 class Favorite(db.Model):
@@ -237,4 +246,3 @@ class Purchase(db.Model):
             'updated_at': self.updated_at,
             'product': self.product.to_dict()
         }
-
