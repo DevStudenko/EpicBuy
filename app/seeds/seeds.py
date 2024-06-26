@@ -56,9 +56,9 @@ def create_seeder():
 
     ## SEED REVIEWS
     review_list = [
-        {'user_id': 1, 'product_id': 1, 'review': 'Great phone!', 'avg_rating': 5},
-        {'user_id': 2, 'product_id': 2, 'review': 'Loving my new laptop', 'avg_rating': 4},
-        {'user_id': 3, 'product_id': 3, 'review': 'Very useful for fitness tracking', 'avg_rating': 5},
+        {'user_id': 1, 'product_id': 1, 'review': 'Great phone!', 'rating': 5},
+        {'user_id': 2, 'product_id': 2, 'review': 'Loving my new laptop', 'rating': 4},
+        {'user_id': 3, 'product_id': 3, 'review': 'Very useful for fitness tracking', 'rating': 5},
     ]
 
     for review_data in review_list:
@@ -66,7 +66,7 @@ def create_seeder():
             user_id=review_data['user_id'],
             product_id=review_data['product_id'],
             review=review_data['review'],
-            avg_rating=review_data['avg_rating'],
+            rating=review_data['rating'],
         )
         db.session.add(review)
     db.session.commit()
@@ -159,4 +159,3 @@ def undo_seeder():
         db.session.execute(text("DELETE FROM purchases"))
 
     db.session.commit()
-
