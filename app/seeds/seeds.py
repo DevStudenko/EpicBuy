@@ -1,7 +1,6 @@
 from app.models import db, User, Product, Review, Cart, CartItem, Favorite, Image, Purchase, environment, SCHEMA
 from sqlalchemy.sql import text
 from werkzeug.security import generate_password_hash
-from datetime import datetime
 
 def create_seeder():
     ## SEED USERS
@@ -160,3 +159,4 @@ def undo_seeder():
         db.session.execute(text("DELETE FROM purchases"))
 
     db.session.commit()
+

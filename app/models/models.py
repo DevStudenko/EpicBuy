@@ -73,9 +73,7 @@ class Product(db.Model):
             'price': self.price,
             'preview_img_url': self.preview_img_url,
             'created_at': self.created_at,
-            'updated_at': self.updated_at,
-            'images': [image.to_dict() for image in self.images],
-            'reviews': [review.to_dict() for review in self.reviews]
+            'updated_at': self.updated_at
         }
 
 class Image(db.Model):
@@ -126,7 +124,7 @@ class Review(db.Model):
             'user_id': self.user_id,
             'product_id': self.product_id,
             'review': self.review,
-            'avg_rating': self.avg_rating,
+            'rating': self.avg_rating,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
