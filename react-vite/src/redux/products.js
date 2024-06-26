@@ -53,7 +53,7 @@ export const getAllProductsThunk = () => async (dispatch) => {
 //! --------------------------------------------------------------------
 export const createProductThunk = (data) => async (dispatch) => {
     try {
-        const response = await fetch("/api/servers/", {
+        const response = await fetch("/api/products", {
             method: "POST",
             body: data
         });
