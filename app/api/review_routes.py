@@ -9,7 +9,7 @@ review_routes = Blueprint('reviews', __name__)
 def create_review(product_id):
     data = request.get_json()
     review_text = data.get('review')
-    avg_rating = data.get('avg_rating')
+    rating = data.get('rating')
 
     if not review_text or not avg_rating:
         return jsonify({"message": "Review text and rating are required"}), 400
@@ -18,7 +18,7 @@ def create_review(product_id):
         user_id=current_user.id,
         product_id=product_id,
         review=review_text,
-        avg_rating=avg_rating
+        rating=rating
     )
     db.session.add(review)
     db.session.commit()
@@ -29,7 +29,7 @@ def create_review(product_id):
 def update_review(review_id):
     data = request.get_json()
     review_text = data.get('review')
-    avg_rating = data.get('avg_rating')
+    rating = data.get('rating')
 
     review = Review.query.filter_by(id=review_id, user_id=current_user.id).first()
 
@@ -37,7 +37,7 @@ def update_review(review_id):
         return jsonify({"message": "Review not found"}), 404
 
     review.review = review_text if review_text else review.review
-    review.avg_rating = avg_rating if avg_rating else review.avg_rating
+    review.rating = rating if rating else review.rating
 
     db.session.commit()
     return jsonify(review.to_dict()), 200
