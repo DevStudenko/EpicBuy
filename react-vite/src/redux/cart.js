@@ -4,10 +4,10 @@ import { createSelector } from "reselect";
 //*                          Action Types
 //! --------------------------------------------------------------------
 
-const GET_ALL = "products/getAll";
-const CREATE = "products/create";
-const UPDATE = "products/update";
-const DELETE = "products/delete";
+const GET_ALL = "cart/getAll";
+const ADD_ITEM = "cart/addItem";
+const UPDATE_ITEM = "cart/updateItem";
+const DELETE_ITEM = "cart/deleteItem";
 
 //! --------------------------------------------------------------------
 //*                         Action Creator
@@ -22,12 +22,9 @@ const action = (type, payload) => ({
 //*                             Thunks
 //! --------------------------------------------------------------------
 
-
-//! --------------------------------------------------------------------
-
-export const getAllProductsThunk = () => async (dispatch) => {
+export const getAllCartItemsThunk = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products`);
+        const response = await fetch("/api/cart");
         if (response.ok) {
             const data = await response.json();
             dispatch(action(GET_ALL, data));
@@ -37,17 +34,20 @@ export const getAllProductsThunk = () => async (dispatch) => {
         console.log(error);
     }
 };
-//! --------------------------------------------------------------------
-export const createProductThunk = (data) => async (dispatch) => {
+
+export const addItemToCartThunk = (itemData) => async (dispatch) => {
     try {
-        const response = await fetch("/api/products", {
+        const response = await fetch("/api/cart", {
             method: "POST",
-            body: data
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(itemData),
         });
 
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(CREATE, data));
+            dispatch(action(ADD_ITEM, data));
             return data;
         }
     } catch (error) {
@@ -55,33 +55,19 @@ export const createProductThunk = (data) => async (dispatch) => {
     }
 };
 
-//! --------------------------------------------------------------------
-
-export const deleteProductThunk = (product) => async (dispatch) => {
+export const updateCartItemThunk = (cartItemId, quantity) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products/${product.id}`, {
-            method: "DELETE",
-            header: { "Content-Type": "application/json" },
-        });
-        if (response.ok) {
-            dispatch(action(DELETE, product));
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-//! --------------------------------------------------------------------
-
-export const updateProductThunk = (product) => async (dispatch) => {
-    try {
-        const response = await fetch(`/api/products/${product.id}`, {
+        const response = await fetch(`/api/cart/${cartItemId}`, {
             method: "PUT",
-            body: product
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ quantity }),
         });
+
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(UPDATE, data));
+            dispatch(action(UPDATE_ITEM, data));
             return data;
         }
     } catch (error) {
@@ -89,21 +75,27 @@ export const updateProductThunk = (product) => async (dispatch) => {
     }
 };
 
+export const removeCartItemThunk = (cartItemId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/cart/${cartItemId}`, {
+            method: "DELETE",
+        });
+
+        if (response.ok) {
+            dispatch(action(DELETE_ITEM, cartItemId));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //! --------------------------------------------------------------------
 //*                            Selectors
 //! --------------------------------------------------------------------
-export const getProductsArray = createSelector(
-    (state) => state.product,
-    (product) => {
-        let arr = [];
-        for (const key in product) {
-            if (Number.isInteger(Number(key))) {
-                arr.push(product[key]);
-            }
-        }
-        return arr;
-    }
+
+export const getCartItemsArray = createSelector(
+    (state) => state.cart,
+    (cart) => Object.values(cart)
 );
 
 //! --------------------------------------------------------------------
@@ -111,22 +103,25 @@ export const getProductsArray = createSelector(
 //! --------------------------------------------------------------------
 
 const initialState = {};
-const productReducer = (state = initialState, action) => {
+
+const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL: {
-            const newState = { ...state, current: { ...state["current"] } };
-            action.payload.forEach((product) => (newState[product.id] = product));
+            const newState = {};
+            action.payload.forEach((item) => {
+                newState[item.id] = item;
+            });
             return newState;
         }
-        case CREATE:
-            return { ...state, [action.payload.id]: action.payload };
-
-        case UPDATE: {
+        case ADD_ITEM: {
             return { ...state, [action.payload.id]: action.payload };
         }
-        case DELETE: {
-            let newState = { ...state };
-            delete newState[action.payload.id];
+        case UPDATE_ITEM: {
+            return { ...state, [action.payload.id]: action.payload };
+        }
+        case DELETE_ITEM: {
+            const newState = { ...state };
+            delete newState[action.payload];
             return newState;
         }
         default:
@@ -134,4 +129,4 @@ const productReducer = (state = initialState, action) => {
     }
 };
 
-export default productReducer;
+export default cartReducer;
