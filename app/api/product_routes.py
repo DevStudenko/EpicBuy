@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 
 product_routes = Blueprint('products', __name__)
 
-@product_routes.route('/', methods=['GET'])
+@product_routes.route('', methods=['GET'])
 def get_all_products():
     products = Product.query.all()
     return jsonify([product.to_dict() for product in products]), 200
