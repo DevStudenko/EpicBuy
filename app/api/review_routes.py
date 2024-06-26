@@ -11,7 +11,7 @@ def create_review(product_id):
     review_text = data.get('review')
     rating = data.get('rating')
 
-    if not review_text or not avg_rating:
+    if not review_text or not rating:
         return jsonify({"message": "Review text and rating are required"}), 400
 
     review = Review(
