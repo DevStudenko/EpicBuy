@@ -3,7 +3,7 @@
 // import SignupFormModal from "../Auth/SignupFormModal";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllProductsThunk } from "../../redux/products";
+import { initialLoadThunk } from "../../redux/initial_load";
 import ProductsList from "../Products";
 
 
@@ -11,7 +11,7 @@ function MainComponent() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getAllProductsThunk());
+        dispatch(initialLoadThunk());
     }, [dispatch])
 
     return (

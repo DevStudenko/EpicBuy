@@ -124,7 +124,7 @@ class Review(db.Model):
             'user_id': self.user_id,
             'product_id': self.product_id,
             'review': self.review,
-            'rating': self.avg_rating,
+            'rating': self.rating,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }

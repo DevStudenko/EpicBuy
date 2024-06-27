@@ -4,6 +4,16 @@ from flask_login import login_required, current_user
 
 review_routes = Blueprint('reviews', __name__)
 
+@review_routes.route('', methods=['GET'])
+def get_all_reviews():
+    reviews = Review.query.all()
+    return jsonify([review.to_dict() for review in reviews]), 200
+
+@review_routes.route('/<int:product_id>', methods=['GET'])
+def get_reviews_for_product(product_id):
+    reviews = Review.query.filter_by(product_id=product_id).all()
+    return jsonify([review.to_dict() for review in reviews]), 200
+
 @review_routes.route('/<int:product_id>', methods=['POST'])
 @login_required
 def create_review(product_id):
@@ -11,7 +21,7 @@ def create_review(product_id):
     review_text = data.get('review')
     rating = data.get('rating')
 
-    if not review_text or not avg_rating:
+    if not review_text or not rating:
         return jsonify({"message": "Review text and rating are required"}), 400
 
     review = Review(

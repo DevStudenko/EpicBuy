@@ -4,10 +4,10 @@ import { createSelector } from "reselect";
 //*                          Action Types
 //! --------------------------------------------------------------------
 
-export const GET_ALL = "products/getAll";
-export const CREATE = "products/create";
-export const UPDATE = "products/update";
-export const DELETE = "products/delete";
+export const GET_ALL = "reviews/getAll";
+export const ADD_REVIEW = "reviews/addReview";
+export const UPDATE_REVIEW = "reviews/updateReview";
+export const DELETE_REVIEW = "reviews/deleteReview";
 
 //! --------------------------------------------------------------------
 //*                         Action Creator
@@ -22,12 +22,9 @@ const action = (type, payload) => ({
 //*                             Thunks
 //! --------------------------------------------------------------------
 
-
-//! --------------------------------------------------------------------
-
-export const getAllProductsThunk = () => async (dispatch) => {
+export const getAllReviewsThunk = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products`);
+        const response = await fetch("/api/reviews");
         if (response.ok) {
             const data = await response.json();
             dispatch(action(GET_ALL, data));
@@ -37,17 +34,20 @@ export const getAllProductsThunk = () => async (dispatch) => {
         console.log(error);
     }
 };
-//! --------------------------------------------------------------------
-export const createProductThunk = (data) => async (dispatch) => {
+
+export const addReviewThunk = (reviewData) => async (dispatch) => {
     try {
-        const response = await fetch("/api/products", {
+        const response = await fetch("/api/reviews", {
             method: "POST",
-            body: data
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reviewData),
         });
 
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(CREATE, data));
+            dispatch(action(ADD_REVIEW, data));
             return data;
         }
     } catch (error) {
@@ -55,33 +55,19 @@ export const createProductThunk = (data) => async (dispatch) => {
     }
 };
 
-//! --------------------------------------------------------------------
-
-export const deleteProductThunk = (product) => async (dispatch) => {
+export const updateReviewThunk = (reviewId, reviewData) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products/${product.id}`, {
-            method: "DELETE",
-            header: { "Content-Type": "application/json" },
-        });
-        if (response.ok) {
-            dispatch(action(DELETE, product));
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-//! --------------------------------------------------------------------
-
-export const updateProductThunk = (product) => async (dispatch) => {
-    try {
-        const response = await fetch(`/api/products/${product.id}`, {
+        const response = await fetch(`/api/reviews/${reviewId}`, {
             method: "PUT",
-            body: product
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reviewData),
         });
+
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(UPDATE, data));
+            dispatch(action(UPDATE_REVIEW, data));
             return data;
         }
     } catch (error) {
@@ -89,21 +75,27 @@ export const updateProductThunk = (product) => async (dispatch) => {
     }
 };
 
+export const removeReviewThunk = (reviewId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/reviews/${reviewId}`, {
+            method: "DELETE",
+        });
+
+        if (response.ok) {
+            dispatch(action(DELETE_REVIEW, reviewId));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 //! --------------------------------------------------------------------
 //*                            Selectors
 //! --------------------------------------------------------------------
-export const getProductsArray = createSelector(
-    (state) => state.product,
-    (product) => {
-        let arr = [];
-        for (const key in product) {
-            if (Number.isInteger(Number(key))) {
-                arr.push(product[key]);
-            }
-        }
-        return arr;
-    }
+
+export const getReviewsArray = createSelector(
+    (state) => state.reviews,
+    (reviews) => Object.values(reviews)
 );
 
 //! --------------------------------------------------------------------
@@ -111,22 +103,25 @@ export const getProductsArray = createSelector(
 //! --------------------------------------------------------------------
 
 const initialState = {};
-const productReducer = (state = initialState, action) => {
+
+const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL: {
-            const newState = { ...state, current: { ...state["current"] } };
-            action.payload.forEach((product) => (newState[product.id] = product));
+            const newState = {};
+            action.payload.forEach((review) => {
+                newState[review.id] = review;
+            });
             return newState;
         }
-        case CREATE:
-            return { ...state, [action.payload.id]: action.payload };
-
-        case UPDATE: {
+        case ADD_REVIEW: {
             return { ...state, [action.payload.id]: action.payload };
         }
-        case DELETE: {
-            let newState = { ...state };
-            delete newState[action.payload.id];
+        case UPDATE_REVIEW: {
+            return { ...state, [action.payload.id]: action.payload };
+        }
+        case DELETE_REVIEW: {
+            const newState = { ...state };
+            delete newState[action.payload];
             return newState;
         }
         default:
@@ -134,4 +129,4 @@ const productReducer = (state = initialState, action) => {
     }
 };
 
-export default productReducer;
+export default reviewsReducer;
