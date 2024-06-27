@@ -18,12 +18,13 @@ const ProductsList = () => {
                             title={product.name}
                             key={product.id}
                         >
+                            <img src={src} />
                             <div className={styles.product__info}>
                                 <p>{product.name}</p>
                                 <p className={styles.product__price}>{product.price}</p>
                             </div>
 
-                            <img src={src} />
+
                             <button>Add to Basket</button>
                         </div>
                     );
