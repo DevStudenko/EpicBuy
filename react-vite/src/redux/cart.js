@@ -4,10 +4,10 @@ import { createSelector } from "reselect";
 //*                          Action Types
 //! --------------------------------------------------------------------
 
-const GET_ALL = "cart/getAll";
-const ADD_ITEM = "cart/addItem";
-const UPDATE_ITEM = "cart/updateItem";
-const DELETE_ITEM = "cart/deleteItem";
+export const GET_ALL = "cart/getAll";
+export const ADD_ITEM = "cart/addItem";
+export const UPDATE_ITEM = "cart/updateItem";
+export const DELETE_ITEM = "cart/deleteItem";
 
 //! --------------------------------------------------------------------
 //*                         Action Creator
