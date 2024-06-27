@@ -18,26 +18,30 @@
     margin: 10px;
     padding: 20px;
     width: 100%;
-    max-height: 400px;
-    min-width: 100px;
+    min-width: 214px;
     background-color: white;
+    border-radius: 5px;
     z-index: 1;
     color: black
 }
 
 .product>img {
-    max-height: 200px;
+    height: 214px;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     margin-bottom: 15px;
 }
 
 .product>button {
-    background: #f0c14b;
-    border: 1px solid;
+    background-color: rgb(58, 245, 188);
     margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    color: #111;
+    color: black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.product>button:hover {
+    background-color: rgb(48, 205, 158);
 }
 
 .product__price {
