@@ -1,17 +1,17 @@
 import { useSelector } from "react-redux";
 import { getProductsArray } from '../../redux/products';
-import { getReviewsArray } from "../../redux/reviews";
+import { IoStar } from "react-icons/io5";
 import styles from './Products.module.css'
 
 const ProductsList = () => {
     // const dispatch = useDispatch();
     const products = useSelector(getProductsArray);
-    const reviews = useSelector(getReviewsArray);
+
 
     return (
         <main className={styles.main}>
             <div className={styles.products__container}>
-                {products.map(({ id, name, price, rating, preview_img_url }) => (
+                {products.map(({ id, name, price, avgRating, preview_img_url }) => (
                     <div
                         className={styles.product}
                         title={name}
@@ -19,9 +19,9 @@ const ProductsList = () => {
                     >
                         <img src={preview_img_url} />
                         <div className={styles.product__info}>
-                            <p>{name}</p>
-                            <p className={styles.product__price}>{price}</p>
-                            <p className={styles.product__rating}>{rating}</p>
+                            <div className={styles.product__name}>{name}</div>
+                            <div className={styles.product__price}>${price}</div>
+                            <div className={styles.product__rating}><IoStar className={styles.product__starIcon} />{avgRating ? avgRating.toFixed(1) : "New"}</div>
                         </div>
                         <button>Add to Basket</button>
                     </div>
