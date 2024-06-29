@@ -67,7 +67,7 @@
 
 
 ## Database Schema Design
-![db-schema](./images/DB_SCHEMA.png)
+![db-schema](./assets/images/DB_SCHEMA.png)
 
 # API Documentation - EpicBuy
 
@@ -1378,9 +1378,9 @@ Removes a product from the current user's favorites.
     ```
 
 ## Database Schema Design
-![homepage](./images/wireframe/homepage.png)
-![products](./images/wireframe/products.png)
-![purchases](./images/wireframe/purchases.png)
-![details](./images/wireframe/details.png)
-![favorites](./images/wireframe/details.png)
+![homepage](./assets/images/wireframe/homepage.png)
+![products](./assets/images/wireframe/products.png)
+![purchases](./assets/images/wireframe/purchases.png)
+![details](./assets/images/wireframe/details.png)
+![favorites](./assets/images/wireframe/details.png)
 # EpicBuy

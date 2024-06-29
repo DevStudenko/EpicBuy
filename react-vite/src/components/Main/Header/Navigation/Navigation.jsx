@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from '../../../../../../images/Logo.png';
+import logo from '../../../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
 import OpenModalButton from "../../../OpenModalButton";
 import LoginFormModal from "../../../Auth/LoginFormModal";
