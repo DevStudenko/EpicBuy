@@ -94,7 +94,7 @@ export const removeReviewThunk = (reviewId) => async (dispatch) => {
 //! --------------------------------------------------------------------
 
 export const getReviewsArray = createSelector(
-    (state) => state.reviews,
+    (state) => state.review,
     (reviews) => Object.values(reviews)
 );
 

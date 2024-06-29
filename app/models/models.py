@@ -65,6 +65,11 @@ class Product(db.Model):
     purchases = db.relationship('Purchase', back_populates='product', cascade='all, delete-orphan')
 
     def to_dict(self):
+        avg_rating = 0
+        if self.reviews:
+            total_rating = sum(review.rating for review in self.reviews)
+            avg_rating = total_rating / len(self.reviews)
+
         return {
             'id': self.id,
             'owner_id': self.owner_id,
@@ -73,8 +78,11 @@ class Product(db.Model):
             'price': self.price,
             'preview_img_url': self.preview_img_url,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'images': [image.to_dict() for image in self.images],  # Using the to_dict method of Image
+            'avgRating': avg_rating
         }
+
 
 class Image(db.Model):
     __tablename__ = 'images'

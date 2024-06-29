@@ -114,7 +114,7 @@ const initialState = {};
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL: {
-            const newState = { ...state, current: { ...state["current"] } };
+            const newState = { ...state };
             action.payload.forEach((product) => (newState[product.id] = product));
             return newState;
         }
