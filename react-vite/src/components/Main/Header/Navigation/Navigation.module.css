@@ -22,8 +22,8 @@
 .nav__right {
   /* padding: 20px; */
   /* width: 50px; */
-  margin: 20px;
-  width: 200px;
+  /* margin: 20px; */
+  width: 400px;
   display: flex;
   justify-content: space-between;
   /* justify-content: center;
@@ -32,13 +32,23 @@
 
 
 .nav__optionOne {
-  width: 80px;
-  height: 50px;
+  width: 110px;
+  height: auto;
 }
 
 .nav__optionTwo {
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: auto;
+}
+
+.nav__optionThree {
+  width: 110px;
+}
+
+.nav__optionOne,
+.nav__optionThree,
+.nav__optionFour {
+  padding: 20px;
 }
 
 .nav__search {
@@ -63,4 +73,5 @@
 .basket {
   width: 100%;
   height: 100%;
+  /* padding: 20px; */
 }

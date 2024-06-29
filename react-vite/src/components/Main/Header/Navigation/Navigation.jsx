@@ -6,9 +6,18 @@ import LoginFormModal from "../../../Auth/LoginFormModal";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { thunkLogout } from "../../../../redux/session";
+import { useDispatch } from "react-redux";
+
 
 function Navigation() {
   const user = useSelector(state => state.session.user);
+  const dispatch = useDispatch();
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+  };
 
   return (
     <div className={styles.nav}>
@@ -30,6 +39,19 @@ function Navigation() {
               className={styles.login}
               modalComponent={<LoginFormModal />}
             />
+          }
+        </span>
+        <span className={styles.nav__optionThree}>
+          {user && <>
+            Balance: $999
+          </>
+          }
+        </span>
+
+        <span className={styles.nav__optionFour}>
+          {user && <button className={styles.nav__logout} onClick={logout}>
+            Log Out
+          </button>
           }
         </span>
         <span className={styles.nav__optionTwo}>
