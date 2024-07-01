@@ -11,5 +11,5 @@ def initial_load_data():
 
     return jsonify({
         "products": [product.to_dict() for product in products],
-        "reviews": [review.to_dict() for review in reviews]
+        "reviews": [review.to_dict() for review in reviews],
     }), 200
