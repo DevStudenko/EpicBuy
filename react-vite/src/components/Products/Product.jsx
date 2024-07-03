@@ -5,7 +5,7 @@ import { addItemToCartThunk } from "../../redux/cart";
 
 const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
-    const addToCart = (id) => {
+    const addToCart = () => {
         const item = {
             product_id: id
         }
@@ -18,7 +18,6 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
                 <div
                     className={styles.product}
                     title={name}
-                    key={id}
                 >
                     <img src={preview_img_url} />
                     <div className={styles.product__info}>

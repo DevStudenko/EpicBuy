@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { thunkLogout } from "../../../../redux/session";
 import { useDispatch } from "react-redux";
 
-
 function Navigation() {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -55,7 +54,9 @@ function Navigation() {
           }
         </span>
         <span className={styles.nav__optionTwo}>
-          {user && <MdOutlineShoppingBasket className={styles.basket} />}
+          {user && <NavLink to="/cart">
+            <MdOutlineShoppingBasket className={styles.basket} />
+          </NavLink>}
         </span>
       </div>
     </div>

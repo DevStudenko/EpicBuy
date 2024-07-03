@@ -4,11 +4,13 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { initialLoadThunk } from "../../redux/initial_load";
-import ProductsList from "../Products";
+import ProductsList from "../Products/ProductsList";
+
 
 
 function MainComponent() {
     const dispatch = useDispatch();
+
 
     useEffect(() => {
         dispatch(initialLoadThunk());

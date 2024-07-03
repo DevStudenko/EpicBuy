@@ -1,6 +1,6 @@
 import { GET_ALL as GET_ALL_PRODUCTS } from "./products";
 import { GET_ALL as GET_ALL_REVIEWS } from "./reviews";
-import { GET_ALL as GET_ALL_ITEMS } from "./cart"
+
 
 
 // Action creator utility
@@ -15,8 +15,7 @@ export const initialLoadThunk = () => async (dispatch) => {
         const response = await fetch("/api/initial_load");
         if (response.ok) {
             const data = await response.json();
-            const { products, reviews, cartItems } = data;
-
+            const { products, reviews } = data;
             // Dispatch actions for each type of data
             dispatch(action(GET_ALL_PRODUCTS, products));
             dispatch(action(GET_ALL_REVIEWS, reviews));
