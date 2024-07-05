@@ -10,11 +10,22 @@ import { thunkLogout } from "../../../../redux/session";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllCartItemsThunk } from "../../../../redux/cart";
+import { getCartItemsArray } from "../../../../redux/cart";
+
 
 
 function Navigation() {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const cartItems = useSelector(getCartItemsArray);
+
+
+  let totalItemCount = 0
+  if (cartItems.length) {
+    totalItemCount = cartItems.reduce((total, item) => total + item.quantity, totalItemCount)
+  }
+
+
 
   useEffect(() => {
     if (user) {
@@ -66,6 +77,7 @@ function Navigation() {
           {user && <NavLink to="/cart">
             <MdOutlineShoppingBasket className={styles.basket} />
           </NavLink>}
+          <span className={styles.itemCount}>{totalItemCount > 0 && totalItemCount}</span>
         </span>
       </div>
     </div>

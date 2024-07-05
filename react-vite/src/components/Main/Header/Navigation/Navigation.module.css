@@ -37,8 +37,15 @@
 }
 
 .nav__optionTwo {
-  width: 30px;
+  display: flex;
+  width: 60px;
   height: auto;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.itemCount {
+  height: 5px;
 }
 
 .nav__optionThree {
@@ -71,7 +78,7 @@
 }
 
 .basket {
-  width: 100%;
+  width: 35px;
   height: 100%;
   /* padding: 20px; */
 }
