@@ -7,7 +7,8 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
     const addToCart = () => {
         const item = {
-            product_id: id
+            product_id: id,
+            avg_rating: avgRating
         }
         dispatch(addItemToCartThunk(item))
     }
@@ -22,8 +23,8 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
                     <img src={preview_img_url} />
                     <div className={styles.product__info}>
                         <div className={styles.product__name}>{name}</div>
-                        <div className={styles.product__price}>${price}</div>
                         <div className={styles.product__rating}><IoStar className={styles.product__starIcon} />{avgRating ? avgRating.toFixed(1) : "New"}</div>
+                        <div className={styles.product__price}>${price}</div>
                     </div>
                     <button onClick={addToCart} className={styles.product__add}>Add to Basket</button>
                 </div>

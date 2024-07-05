@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { getProductsArray } from '../../../redux/products';
 
 const ProductsList = () => {
-  const products = useSelector(getProductsArray)
+  const products = useSelector(getProductsArray);
 
   return (
     <div>

@@ -3,6 +3,7 @@ import { thunkLogin } from "../../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import styles from "./LoginForm.module.css";
+import { getAllCartItemsThunk } from "../../../redux/cart";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -23,8 +24,8 @@ function LoginFormModal() {
 
     if (serverResponse) {
       setErrors(serverResponse);
-      console.log(serverResponse);
     } else {
+      dispatch(getAllCartItemsThunk());
       closeModal();
     }
   };

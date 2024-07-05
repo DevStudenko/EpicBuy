@@ -17,6 +17,7 @@ def add_item_to_cart():
     data = request.get_json()
     product_id = data.get('product_id')
     quantity = data.get('quantity', 1)
+    avg_rating = data.get('avg_rating')
 
     # Check if the user already has a cart
     cart = Cart.query.filter(Cart.user_id == current_user.id).first()
@@ -31,7 +32,7 @@ def add_item_to_cart():
     if cart_item:
         cart_item.quantity += quantity
     else:
-        cart_item = CartItem(cart_id = cart.id, product_id = product_id, quantity = quantity)
+        cart_item = CartItem(cart_id = cart.id, product_id = product_id, quantity = quantity, avg_rating = avg_rating)
         db.session.add(cart_item)
 
     db.session.commit()
@@ -53,17 +54,6 @@ def update_cart_item(cart_item_id):
 
     cart_item.quantity = quantity
     db.session.commit()
-
-    # If quantity is zero, delete the cart item
-    if cart_item.quantity == 0:
-        db.session.delete(cart_item)
-        db.session.commit()
-
-        # Check if the cart is empty and delete it if it is
-        cart = Cart.query.filter_by(id=cart_item.cart_id).first()
-        if not cart.cart_items:
-            db.session.delete(cart)
-            db.session.commit()
 
     return jsonify(cart_item.to_dict()), 200
 

@@ -8,6 +8,7 @@ export const GET_ALL = "cart/getAll";
 export const ADD_ITEM = "cart/addItem";
 export const UPDATE_ITEM = "cart/updateItem";
 export const DELETE_ITEM = "cart/deleteItem";
+export const RESET_ITEMS = "cart/resetItems"
 
 //! --------------------------------------------------------------------
 //*                         Action Creator
@@ -16,6 +17,10 @@ export const DELETE_ITEM = "cart/deleteItem";
 const action = (type, payload) => ({
     type,
     payload,
+});
+
+export const resetItems = () => ({
+    type: RESET_ITEMS
 });
 
 //! --------------------------------------------------------------------
@@ -34,7 +39,7 @@ export const getAllCartItemsThunk = () => async (dispatch) => {
         console.log(error);
     }
 };
-
+//! --------------------------------------------------------------------
 export const addItemToCartThunk = (itemData) => async (dispatch) => {
     try {
         const response = await fetch("/api/cart", {
@@ -54,7 +59,7 @@ export const addItemToCartThunk = (itemData) => async (dispatch) => {
         console.log(error);
     }
 };
-
+//! --------------------------------------------------------------------
 export const updateCartItemThunk = (cartItemId, quantity) => async (dispatch) => {
     try {
         const response = await fetch(`/api/cart/${cartItemId}`, {
@@ -74,7 +79,7 @@ export const updateCartItemThunk = (cartItemId, quantity) => async (dispatch) =>
         console.log(error);
     }
 };
-
+//! --------------------------------------------------------------------
 export const removeCartItemThunk = (cartItemId) => async (dispatch) => {
     try {
         const response = await fetch(`/api/cart/${cartItemId}`, {
@@ -107,7 +112,7 @@ const initialState = {};
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL: {
-            const newState = {};
+            const newState = { ...state };
             action.payload.forEach((item) => {
                 newState[item.id] = item;
             });
@@ -123,6 +128,9 @@ const cartReducer = (state = initialState, action) => {
             const newState = { ...state };
             delete newState[action.payload];
             return newState;
+        }
+        case RESET_ITEMS: {
+            return initialState;
         }
         default:
             return state;
