@@ -1,16 +1,16 @@
 import { NavLink } from "react-router-dom";
-import logo from '../../../../../../assets/images/Logo.png';
+import logo from '../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
-import OpenModalButton from "../../../OpenModalButton";
-import LoginFormModal from "../../../Auth/LoginFormModal";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../Auth/LoginFormModal";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { thunkLogout } from "../../../../redux/session";
+import { thunkLogout } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllCartItemsThunk } from "../../../../redux/cart";
-import { getCartItemsArray } from "../../../../redux/cart";
+import { getAllCartItemsThunk } from "../../redux/cart";
+import { getCartItemsArray } from "../../redux/cart";
 
 
 
