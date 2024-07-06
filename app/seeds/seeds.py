@@ -8,6 +8,7 @@ def create_seeder():
         {'username':'Demo', 'email':'demo@aa.io', 'password':generate_password_hash("password")},
         {'username':'marnie', 'email':'marnie@aa.io', 'password':generate_password_hash("password")},
         {'username':'john', 'email':'john@aa.io', 'password':generate_password_hash("password")},
+        {'username':'admin', 'email':'admin@aa.io', 'password':generate_password_hash("admin"), 'is_admin': True},
     ]
 
     for user_data in user_list:
@@ -15,15 +16,16 @@ def create_seeder():
             username=user_data['username'],
             email=user_data['email'],
             hashed_password=user_data['password'],
+            is_admin=user_data.get('is_admin', False)
         )
         db.session.add(user)
     db.session.commit()
 
     ## SEED PRODUCTS
     product_list = [
-        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 999.00, 'preview_img_url': 'https://images.unsplash.com/photo-1638038772924-ef79cce2426d'},
-        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 1999.00, 'preview_img_url': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8'},
-        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 399.00, 'preview_img_url': 'https://images.unsplash.com/photo-1551816230-ef5deaed4a26'},
+        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 99.99, 'preview_img_url': 'https://images.unsplash.com/photo-1638038772924-ef79cce2426d'},
+        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 199., 'preview_img_url': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8'},
+        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 299.00, 'preview_img_url': 'https://images.unsplash.com/photo-1551816230-ef5deaed4a26'},
     ]
 
     for product_data in product_list:
