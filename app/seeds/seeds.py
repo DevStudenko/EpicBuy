@@ -5,10 +5,10 @@ from werkzeug.security import generate_password_hash
 def create_seeder():
     ## SEED USERS
     user_list = [
-        {'username':'Demo', 'email':'demo@aa.io', 'password':generate_password_hash("password")},
-        {'username':'marnie', 'email':'marnie@aa.io', 'password':generate_password_hash("password")},
-        {'username':'john', 'email':'john@aa.io', 'password':generate_password_hash("password")},
-        {'username':'admin', 'email':'admin@aa.io', 'password':generate_password_hash("admin"), 'is_admin': True},
+        {'username':'Demo', 'email':'demo@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
+        {'username':'marnie', 'email':'marnie@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
+        {'username':'john', 'email':'john@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
+        {'username':'admin', 'email':'admin@aa.io', 'password':generate_password_hash("admin"), 'is_admin': True, 'profile_img_url':"../../assets/images/default_user.jpg"}
     ]
 
     for user_data in user_list:
@@ -16,7 +16,8 @@ def create_seeder():
             username=user_data['username'],
             email=user_data['email'],
             hashed_password=user_data['password'],
-            is_admin=user_data.get('is_admin', False)
+            is_admin=user_data.get('is_admin', False),
+            profile_img_url=user_data['profile_img_url']
         )
         db.session.add(user)
     db.session.commit()
