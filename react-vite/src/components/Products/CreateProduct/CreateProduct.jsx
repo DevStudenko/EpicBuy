@@ -11,6 +11,7 @@ const CreateProduct = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [previewImgUrl, setPreviewImgUrl] = useState('');
+    const [quantity, setQuantity] = useState('');
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
@@ -21,6 +22,7 @@ const CreateProduct = () => {
             description,
             price: parseFloat(price),
             preview_img_url: previewImgUrl,
+            quantity: parseInt(quantity)
         };
 
         console.log(newProduct);
@@ -81,6 +83,16 @@ const CreateProduct = () => {
                 {errors.previewImgUrl && (
                     <p className={styles.error}>{errors.previewImgUrl}</p>
                 )}
+                <label>
+                    Quantity
+                    <input
+                        type="number"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                        required
+                    />
+                </label>
+                {errors.quantity && <p className={styles.error}>{errors.quantity}</p>}
                 {errors.error && (
                     <p className={styles.error}>{errors.error}</p>
                 )}
