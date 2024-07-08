@@ -25,9 +25,10 @@ def create_product():
         name=data.get('name'),
         description=data.get('description'),
         price=data.get('price'),
-        preview_img_url=data.get('preview_img_url')
+        preview_img_url=data.get('preview_img_url'),
+        quantity=data.get('quantity')
     )
-    print('!!!!!!!!!!!!!!!!product', product)
+
     db.session.add(product)
     db.session.commit()
     return jsonify(product.to_dict()), 201
@@ -46,6 +47,7 @@ def update_product(id):
     product.description = data.get('description', product.description)
     product.price = data.get('price', product.price)
     product.preview_img_url = data.get('preview_img_url', product.preview_img_url)
+    product.quantity = data.get('quantity', product.quantity)
 
     db.session.commit()
     return jsonify(product.to_dict()), 200

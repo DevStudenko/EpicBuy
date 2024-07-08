@@ -55,6 +55,7 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
+    quantity = db.Column(db.Integer, nullable=False, default=1)
     preview_img_url = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -80,6 +81,7 @@ class Product(db.Model):
             'description': self.description,
             'price': self.price,
             'preview_img_url': self.preview_img_url,
+            'quantity': self.quantity,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'images': [image.to_dict() for image in self.images],  # Using the to_dict method of Image
