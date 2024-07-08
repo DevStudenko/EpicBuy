@@ -42,7 +42,10 @@ export const createProductThunk = (data) => async (dispatch) => {
     try {
         const response = await fetch("/api/products", {
             method: "POST",
-            body: data
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
         });
 
         if (response.ok) {

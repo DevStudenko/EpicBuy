@@ -27,6 +27,7 @@ def create_product():
         price=data.get('price'),
         preview_img_url=data.get('preview_img_url')
     )
+    print('!!!!!!!!!!!!!!!!product', product)
     db.session.add(product)
     db.session.commit()
     return jsonify(product.to_dict()), 201

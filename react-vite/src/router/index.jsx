@@ -5,7 +5,7 @@ import Layout from './Layout';
 import Cart from '../components/Cart';
 import MainComponent from '../components/Main';
 import ProductDetails from '../components/Products/ProductDetails';
-import CreateProduct from '../components/CreateProduct';
+import CreateProduct from '../components/Products/CreateProduct';
 
 export const router = createBrowserRouter([
   {
