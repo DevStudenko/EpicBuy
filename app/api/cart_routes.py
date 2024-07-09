@@ -71,3 +71,16 @@ def remove_cart_item(cart_item_id):
     db.session.delete(cart_item)
     db.session.commit()
     return jsonify({"message": "Successfully deleted"}), 200
+
+@cart_routes.route("", methods=['DELETE'])
+@login_required
+def clear_cart():
+    cart = Cart.query.filter(Cart.user_id == current_user.id).first()
+
+    if not cart:
+        return jsonify({"message": "No cart found for user"}), 404
+
+    CartItem.query.filter(CartItem.cart_id == cart.id).delete()
+    db.session.commit()
+
+    return jsonify({"message": "All cart items successfully deleted"}), 200

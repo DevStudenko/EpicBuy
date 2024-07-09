@@ -1,11 +1,13 @@
 import { IoStar } from "react-icons/io5";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemToCartThunk } from "../../redux/cart";
 import { Link } from "react-router-dom";
 import styles from './Product.module.css';
 
 const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.session.user);
+
     const addToCart = (event) => {
         event.preventDefault();
         const item = {
@@ -28,7 +30,9 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
                         <div className={styles.product__rating}><IoStar className={styles.product__starIcon} />{avgRating ? avgRating.toFixed(1) : "New"}</div>
                         <div className={styles.product__price}>${price}</div>
                     </div>
-                    <button onClick={addToCart} className={styles.product__add}>Add to Basket</button>
+                    {user && ( // Show Add to Basket button if user is logged in
+                        <button onClick={addToCart} className={styles.product__add}>Add to Basket</button>
+                    )}
                 </div>
             </Link>
         </main>

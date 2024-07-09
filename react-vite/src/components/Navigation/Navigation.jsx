@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllCartItemsThunk } from "../../redux/cart";
 import { getCartItemsArray } from "../../redux/cart";
+import { getPurchasesThunk } from "../../redux/purchases";
 
 
 
@@ -29,7 +30,8 @@ function Navigation() {
 
   useEffect(() => {
     if (user) {
-      dispatch(getAllCartItemsThunk())
+      dispatch(getAllCartItemsThunk());
+      dispatch(getPurchasesThunk());
     }
   }, [user, dispatch]);
 
