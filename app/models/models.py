@@ -41,7 +41,9 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'balance': self.balance,
+            'isAdmin': self.is_admin
         }
 
 class Product(db.Model):

@@ -24,9 +24,9 @@ def create_seeder():
 
     ## SEED PRODUCTS
     product_list = [
-        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 99.99, 'preview_img_url': 'https://images.unsplash.com/photo-1638038772924-ef79cce2426d'},
-        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 199., 'preview_img_url': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8'},
-        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 299.00, 'preview_img_url': 'https://images.unsplash.com/photo-1551816230-ef5deaed4a26'},
+        {'owner_id': 1, 'name': 'iPhone 13', 'description': 'Latest Apple smartphone', 'price': 99.99, 'preview_img_url': 'https://images.unsplash.com/photo-1638038772924-ef79cce2426d', 'quantity': 20},
+        {'owner_id': 2, 'name': 'MacBook Pro', 'description': 'High-performance laptop from Apple', 'price': 199., 'preview_img_url': 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8', 'quantity': 20},
+        {'owner_id': 3, 'name': 'Apple Watch', 'description': 'Smartwatch with fitness tracking', 'price': 299.00, 'preview_img_url': 'https://images.unsplash.com/photo-1551816230-ef5deaed4a26', 'quantity': 20},
     ]
 
     for product_data in product_list:
