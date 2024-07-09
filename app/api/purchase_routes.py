@@ -4,6 +4,14 @@ from flask_login import login_required, current_user
 
 purchase_routes = Blueprint('purchases', __name__)
 
+
+@purchase_routes.route('', methods=['GET'])
+@login_required
+def get_purchases():
+    purchases = Purchase.query.filter_by(user_id=current_user.id).all()
+    return jsonify([purchase.to_dict() for purchase in purchases]), 200
+
+
 @purchase_routes.route('', methods=['POST'])
 @login_required
 def purchase_items():
@@ -30,5 +38,3 @@ def purchase_items():
 
     db.session.commit()
     return jsonify({"message": "Purchase successful"}), 200
-
-

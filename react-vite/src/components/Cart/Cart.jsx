@@ -1,12 +1,26 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getCartItemsArray } from '../../redux/cart';
 import CartItem from "./CartItem";
-
-import styles from "./Cart.module.css"
-
+import { purchaseItemsThunk } from '../../redux/purchases';
+import { deleteAllCartItemsThunk } from '../../redux/cart';
+import { useNavigate } from 'react-router-dom';
+import styles from "./Cart.module.css";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const items = useSelector(getCartItemsArray);
+
+  const handlePurchase = async () => {
+    const response = await dispatch(purchaseItemsThunk(items));
+    if (response.errors) {
+      alert(response.errors);
+    } else {
+      dispatch(deleteAllCartItemsThunk());
+      alert('Thank you for your purchase!');
+      navigate('/');
+    }
+  };
 
   return (
     <div className={styles.checkout}>
@@ -24,9 +38,10 @@ const Cart = () => {
           avgRating={avg_rating}
         />
       ))}
+      <button onClick={handlePurchase} className={styles.purchaseButton}>Purchase</button>
     </div>
-  )
+  );
+};
 
-}
+export default Cart;
 
-export default Cart

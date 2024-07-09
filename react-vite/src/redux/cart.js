@@ -93,7 +93,20 @@ export const removeCartItemThunk = (cartItemId) => async (dispatch) => {
         console.log(error);
     }
 };
+//! --------------------------------------------------------------------
+export const deleteAllCartItemsThunk = () => async (dispatch) => {
+    try {
+        const response = await fetch('/api/cart', {
+            method: "DELETE",
+        });
 
+        if (response.ok) {
+            dispatch(action(RESET_ITEMS));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 //! --------------------------------------------------------------------
 //*                            Selectors
 //! --------------------------------------------------------------------
