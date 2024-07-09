@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import logo from '../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../Auth/LoginFormModal";
+import SignupFormModal from "../Auth/SignupFormModal"
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { getAllCartItemsThunk } from "../../redux/cart";
 import { getCartItemsArray } from "../../redux/cart";
 import { getPurchasesThunk } from "../../redux/purchases";
+
 
 
 
@@ -56,9 +57,9 @@ function Navigation() {
         <span className={styles.nav__optionOne}>
           {user ? `Welcome, ${user.username}` :
             <OpenModalButton
-              buttonText="Sign In"
+              buttonText="Sign Up"
               className={styles.login}
-              modalComponent={<LoginFormModal />}
+              modalComponent={<SignupFormModal />}
             />
           }
         </span>

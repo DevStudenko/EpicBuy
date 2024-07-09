@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkSignup } from "../../../redux/session";
 import styles from "./SignupForm.module.css";
+import LoginFormModal from "../LoginFormModal"; // Make sure the path is correct
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
+  const { closeModal, setModalContent } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,6 +39,11 @@ function SignupFormModal() {
     }
   };
 
+  const switchToLogin = () => {
+    closeModal();
+    setModalContent(<LoginFormModal />);
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.title}>Sign Up</div>
@@ -50,7 +56,6 @@ function SignupFormModal() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-
         <div className={styles.errors}>{errors.email && errors.email}</div>
         <input
           className={styles.user_name}
@@ -60,9 +65,7 @@ function SignupFormModal() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-        <div className={styles.errors}>
-          {errors.username && errors.username}
-        </div>
+        <div className={styles.errors}>{errors.username && errors.username}</div>
         <input
           className={styles.password}
           type="password"
@@ -71,9 +74,7 @@ function SignupFormModal() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <div className={styles.errors}>
-          {errors.password && errors.password}
-        </div>
+        <div className={styles.errors}>{errors.password && errors.password}</div>
         <input
           className={styles.confirm_password}
           type="password"
@@ -94,6 +95,12 @@ function SignupFormModal() {
           </button>
         </div>
       </form>
+      <div className={styles.switchModal}>
+        Already registered?{" "}
+        <button className={styles.switchButton} onClick={switchToLogin}>
+          Login
+        </button>
+      </div>
     </main>
   );
 }
