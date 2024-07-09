@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import logo from '../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
 import OpenModalButton from "../OpenModalButton";
-import LoginFormModal from "../Auth/LoginFormModal";
 import SignupFormModal from "../Auth/SignupFormModal"
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBasket } from "react-icons/md";
