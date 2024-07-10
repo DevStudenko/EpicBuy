@@ -36,6 +36,7 @@ def create_seeder():
             description=product_data['description'],
             price=product_data['price'],
             preview_img_url=product_data['preview_img_url'],
+            quantity=product_data['quantity']
         )
         db.session.add(product)
     db.session.commit()

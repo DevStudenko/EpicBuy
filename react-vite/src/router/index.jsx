@@ -6,6 +6,7 @@ import Cart from '../components/Cart';
 import MainComponent from '../components/Main';
 import ProductDetails from '../components/Products/ProductDetails';
 import CreateProduct from '../components/Products/CreateProduct';
+import Profile from '../components/Profile/Profile';
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: 'products',
         element: <CreateProduct />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />
       }
 
     ],

@@ -43,7 +43,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'balance': self.balance,
-            'isAdmin': self.is_admin
+            'isAdmin': self.is_admin,
+            'profile_img_url': self.profile_img_url
         }
 
 class Product(db.Model):

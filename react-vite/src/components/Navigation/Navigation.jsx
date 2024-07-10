@@ -14,6 +14,7 @@ import { getCartItemsArray } from "../../redux/cart";
 import { getPurchasesThunk } from "../../redux/purchases";
 
 
+
 function Navigation() {
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
@@ -62,7 +63,9 @@ function Navigation() {
           }
         </span>
         <span className={styles.nav__optionThree}>
-          {user && `Balance: $${user.balance.toFixed(2)}`}
+          {user && <NavLink to="/profile">
+            Profile
+          </NavLink>}
         </span>
         <span className={styles.nav__optionFour}>
           {user && <button className={styles.nav__logout} onClick={logout}>
