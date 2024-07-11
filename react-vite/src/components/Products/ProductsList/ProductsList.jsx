@@ -1,27 +1,28 @@
-import Product from "../Product";
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
+import Product from '../Product';
 import { getProductsArray } from '../../../redux/products';
 
-const ProductsList = () => {
+const ProductsList = ({ onEdit, onDelete }) => {
   const products = useSelector(getProductsArray);
-  // Get all available products (quantity > 0)
-  const availableProducts = products.filter(product => product.quantity > 0)
+  const availableProducts = products.filter(product => product.quantity > 0);
 
   return (
     <div>
-      {availableProducts
-        .map(({ id, name, preview_img_url, price, avgRating }) => (
+      {availableProducts.map((product) => (
+        <div key={product.id} className="product-item">
           <Product
-            key={id}
-            id={id}
-            name={name}
-            preview_img_url={preview_img_url}
-            price={price}
-            avgRating={avgRating}
+            id={product.id}
+            name={product.name}
+            preview_img_url={product.preview_img_url}
+            price={product.price}
+            avgRating={product.avgRating}
           />
-        ))}
+          <button onClick={() => onEdit(product)}>Update</button>
+          <button onClick={() => onDelete(product)}>Delete</button>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default ProductsList;

@@ -2,13 +2,14 @@ from app.models import db, User, Product, Review, Cart, CartItem, Favorite, Imag
 from sqlalchemy.sql import text
 from werkzeug.security import generate_password_hash
 
+
 def create_seeder():
     ## SEED USERS
     user_list = [
-        {'username':'Demo', 'email':'demo@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
-        {'username':'marnie', 'email':'marnie@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
-        {'username':'john', 'email':'john@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':"../../assets/images/default_user.jpg"},
-        {'username':'admin', 'email':'admin@aa.io', 'password':generate_password_hash("admin"), 'is_admin': True, 'profile_img_url':"../../assets/images/default_user.jpg"}
+        {'username':'Demo', 'email':'demo@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':""},
+        {'username':'marnie', 'email':'marnie@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':""},
+        {'username':'john', 'email':'john@aa.io', 'password':generate_password_hash("password"), 'profile_img_url':""},
+        {'username':'admin', 'email':'admin@aa.io', 'password':generate_password_hash("admin"), 'is_admin': True, 'profile_img_url':""}
     ]
 
     for user_data in user_list:
