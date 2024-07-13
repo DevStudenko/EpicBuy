@@ -1,16 +1,22 @@
-import { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import Favorites from './Favorites';
 import PurchaseHistory from './PurchaseHistory';
-import ManageProducts from './ManageProducts';
+import ManageProducts from '../Products/ManageProducts';
 import TransactionHistory from './TransactionHistory';
-import default_user from '../../../../assets/images/default_user.jpg'
+import default_user from '../../../../assets/images/default_user.jpg';
+import { thunkAuthenticate } from '../../redux/session';
 
 const Profile = () => {
+  const dispatch = useDispatch();
   const [activeComponent, setActiveComponent] = useState(null);
   const user = useSelector(state => state.session.user);
   const isAdmin = user?.isAdmin === true;
 
+  // Re-fetch the user data when the component mounts to ensure it's up-to-date
+  useEffect(() => {
+    dispatch(thunkAuthenticate());
+  }, [dispatch]);
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -29,7 +35,7 @@ const Profile = () => {
 
   return (
     <div className="profile">
-      <img src={user.profile_image_url || default_user} alt={`${user?.username}'s profile`} />
+      <img src={user?.profile_image_url || default_user} alt={`${user?.username}'s profile`} />
       <h2>{user?.username}</h2>
       <p>Email: {user?.email}</p>
       <p>Balance: ${user?.balance.toFixed(2)}</p>

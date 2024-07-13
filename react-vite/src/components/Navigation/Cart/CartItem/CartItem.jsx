@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import styles from "./CartItem.module.css";
 import { IoStar } from "react-icons/io5";
 import { useState } from "react";
-import { updateCartItemThunk, removeCartItemThunk } from "../../../redux/cart";
+import { updateCartItemThunk, removeCartItemThunk } from "../../../../redux/cart";
 
 const CartItem = ({ id, name, preview_img_url, price, quantity, avgRating }) => {
     const dispatch = useDispatch();

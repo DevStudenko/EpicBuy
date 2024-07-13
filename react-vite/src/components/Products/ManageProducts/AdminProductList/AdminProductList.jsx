@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import AdminProductItem from '../AdminProductItem';
-import { getProductsArray } from '../../../redux/products';
+import { getProductsArray } from '../../../../redux/products';
 import styles from './AdminProductList.module.css';
 
-const AdminProductsList = () => {
+const AdminProductList = () => {
     const products = useSelector(getProductsArray);
     const availableProducts = products.filter(product => product.quantity > 0);
 
@@ -19,4 +19,4 @@ const AdminProductsList = () => {
     );
 };
 
-export default AdminProductsList;
+export default AdminProductList;

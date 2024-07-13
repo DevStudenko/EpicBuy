@@ -40,7 +40,7 @@ def update_product(id):
     product = Product.query.get(id)
     if not product:
         return jsonify({"message": "Product couldn't be found"}), 404
-    if product.owner_id != current_user.id:
+    if not current_user.is_admin:
         return jsonify({"message": "Forbidden"}), 403
 
     product.name = data.get('name', product.name)
@@ -58,7 +58,7 @@ def delete_product(id):
     product = Product.query.get(id)
     if not product:
         return jsonify({"message": "Product couldn't be found"}), 404
-    if product.owner_id != current_user.id:
+    if not current_user.is_admin:
         return jsonify({"message": "Forbidden"}), 403
 
     db.session.delete(product)

@@ -1,18 +1,18 @@
 import { useDispatch } from 'react-redux';
-import { createProductThunk } from '../../../redux/products';
-import { useNavigate } from 'react-router-dom';
+import { createProductThunk } from '../../../../redux/products';
 import { useState } from 'react';
 import styles from './CreateProduct.module.css';
+import { useModal } from '../../../../context/Modal';
 
 const CreateProduct = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [previewImgUrl, setPreviewImgUrl] = useState('');
     const [quantity, setQuantity] = useState('');
     const [errors, setErrors] = useState({});
+    const { closeModal } = useModal();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +25,6 @@ const CreateProduct = () => {
             quantity: parseInt(quantity)
         };
 
-        console.log(newProduct);
         const serverResponse = await dispatch(createProductThunk(newProduct));
 
         if (!serverResponse) {
@@ -33,7 +32,8 @@ const CreateProduct = () => {
         } else if (serverResponse.errors) {
             setErrors(serverResponse.errors);
         } else {
-            navigate('/');
+            closeModal();
+            return;
         }
     };
 

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProductThunk } from '../../../redux/products';
+import { updateProductThunk } from '../../../../redux/products';
 import styles from './UpdateProduct.module.css';
+import { useModal } from '../../../../context/Modal';
 
-const UpdateProduct = ({ product, onClose }) => {
+const UpdateProduct = ({ product }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description);
@@ -11,6 +12,7 @@ const UpdateProduct = ({ product, onClose }) => {
   const [quantity, setQuantity] = useState(product.quantity);
   const [previewImgUrl, setPreviewImgUrl] = useState(product.preview_img_url);
   const [errors, setErrors] = useState({});
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,17 +26,14 @@ const UpdateProduct = ({ product, onClose }) => {
       preview_img_url: previewImgUrl,
     };
 
-    console.log('updatedProduct: ', updatedProduct)
     const serverResponse = await dispatch(updateProductThunk(updatedProduct));
-    console.log('Server Res: ', serverResponse);
 
     if (!serverResponse) {
       setErrors({ error: 'Something went wrong. Please try again.' });
     } else if (serverResponse.errors) {
       setErrors(serverResponse.errors);
     } else {
-      alert('Product updated successfully');
-      onClose();
+      closeModal();
     }
   };
 

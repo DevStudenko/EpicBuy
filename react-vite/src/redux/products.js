@@ -63,8 +63,7 @@ export const createProductThunk = (data) => async (dispatch) => {
 export const deleteProductThunk = (product) => async (dispatch) => {
     try {
         const response = await fetch(`/api/products/${product.id}`, {
-            method: "DELETE",
-            header: { "Content-Type": "application/json" },
+            method: "DELETE"
         });
         if (response.ok) {
             dispatch(action(DELETE, product));
@@ -80,11 +79,13 @@ export const updateProductThunk = (product) => async (dispatch) => {
     try {
         const response = await fetch(`/api/products/${product.id}`, {
             method: "PUT",
-            header: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product)
         });
+
         if (response.ok) {
             const data = await response.json();
+            console.log(data);
             dispatch(action(UPDATE, data));
             return data;
         }

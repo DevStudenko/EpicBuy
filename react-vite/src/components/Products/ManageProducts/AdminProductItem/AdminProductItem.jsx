@@ -1,7 +1,7 @@
 import styles from './AdminProductItem.module.css';
-import OpenModalButton from '../../OpenModalButton';
-import UpdateProduct from '../../Products/UpdateProduct';
-import DeleteProduct from '../../Products/DeleteProduct';
+import OpenModalButton from '../../../OpenModalButton';
+import UpdateProduct from '../UpdateProduct';
+import DeleteProduct from '../DeleteProduct';
 
 const AdminProductItem = ({ product }) => {
     return (

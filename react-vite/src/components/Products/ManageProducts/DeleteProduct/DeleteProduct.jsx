@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useModal } from "../../../context/Modal";
+import { useModal } from "../../../../context/Modal";
 import { useDispatch } from "react-redux";
 import styles from "./DeleteProduct.module.css";
-import { deleteProductThunk, getAllProductsThunk } from "../../../redux/products";
+import { deleteProductThunk } from "../../../../redux/products";
 
 const DeleteProduct = ({ product }) => {
   const [errors, setErrors] = useState({});
@@ -11,8 +11,7 @@ const DeleteProduct = ({ product }) => {
 
   const onClick = async () => {
     try {
-      await dispatch(deleteProductThunk(product.id));
-      await dispatch(getAllProductsThunk());
+      await dispatch(deleteProductThunk(product));
       closeModal();
     } catch (e) {
       setErrors({ error: "An unexpected error occurred" });

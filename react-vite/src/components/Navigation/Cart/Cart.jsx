@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getCartItemsArray } from '../../redux/cart';
+import { getCartItemsArray } from '../../../redux/cart';
 import CartItem from "./CartItem";
-import { purchaseItemsThunk } from '../../redux/purchases';
-import { deleteAllCartItemsThunk } from '../../redux/cart';
+import { purchaseItemsThunk } from '../../../redux/purchases';
+import { deleteAllCartItemsThunk } from '../../../redux/cart';
 import { useNavigate } from 'react-router-dom';
 import styles from "./Cart.module.css";
 
@@ -44,4 +44,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
