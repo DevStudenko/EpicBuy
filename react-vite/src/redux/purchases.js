@@ -1,3 +1,5 @@
+import { createSelector } from "reselect";
+
 // Action Types
 const MAKE_PURCHASE = 'purchases/makePurchase';
 const GET_ALL = 'purchases/getPurchases';
@@ -53,6 +55,15 @@ export const getPurchasesThunk = () => async (dispatch) => {
         return { errors: 'Something went wrong. Please try again.' };
     }
 };
+
+//! --------------------------------------------------------------------
+//*                            Selectors
+//! --------------------------------------------------------------------
+
+export const getPurchasesArray = createSelector(
+    (state) => state.purchase,
+    (purchases) => Object.values(purchases)
+);
 
 // Reducer
 const initialState = {};

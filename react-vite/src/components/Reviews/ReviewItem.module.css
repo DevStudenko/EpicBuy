@@ -1,0 +1,13 @@
+.reviewItem {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.reviewButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.review__starIcon {
+    color: red;
+}
