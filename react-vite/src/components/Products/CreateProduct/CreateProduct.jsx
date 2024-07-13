@@ -39,7 +39,7 @@ const CreateProduct = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Create New Product</h1>
+            <h1 className={styles.title}>Create New Product</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Name
@@ -48,6 +48,7 @@ const CreateProduct = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.name && <p className={styles.error}>{errors.name}</p>}
@@ -57,6 +58,7 @@ const CreateProduct = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.description && (
@@ -69,6 +71,7 @@ const CreateProduct = () => {
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.price && <p className={styles.error}>{errors.price}</p>}
@@ -78,6 +81,7 @@ const CreateProduct = () => {
                         type="text"
                         value={previewImgUrl}
                         onChange={(e) => setPreviewImgUrl(e.target.value)}
+                        className={styles.input}
                     />
                 </label>
                 {errors.previewImgUrl && (
@@ -90,13 +94,14 @@ const CreateProduct = () => {
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.quantity && <p className={styles.error}>{errors.quantity}</p>}
                 {errors.error && (
                     <p className={styles.error}>{errors.error}</p>
                 )}
-                <button type="submit">Create Product</button>
+                <button type="submit" className={styles.submit}>Create Product</button>
             </form>
         </div>
     );

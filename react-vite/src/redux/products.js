@@ -80,7 +80,8 @@ export const updateProductThunk = (product) => async (dispatch) => {
     try {
         const response = await fetch(`/api/products/${product.id}`, {
             method: "PUT",
-            body: product
+            header: { "Content-Type": "application/json" },
+            body: JSON.stringify(product)
         });
         if (response.ok) {
             const data = await response.json();

@@ -1,40 +1,34 @@
-import { useState } from 'react';
-import CreateProduct from '../../Products/CreateProduct';
-import ProductsList from '../../Products/ProductsList';
-import UpdateProduct from '../../Products/UpdateProduct';
-import ConfirmationModal from './ConfirmationModal';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import AdminProductList from '../AdminProductList';
 import { useModal } from '../../../context/Modal';
+import CreateProduct from '../../Products/CreateProduct';
+import { getAllProductsThunk } from '../../../redux/products';
+import styles from './ManageProducts.module.css';
 
 const ManageProducts = () => {
-    const { setModalContent, closeModal } = useModal();
-    const [activeComponent, setActiveComponent] = useState(null);
+    const dispatch = useDispatch();
+    const { setModalContent } = useModal();
+    const [showInventory, setShowInventory] = useState(false);
 
-    const handleEdit = (product) => {
-        setModalContent(<UpdateProduct product={product} onClose={closeModal} />);
+    useEffect(() => {
+        dispatch(getAllProductsThunk());
+    }, [dispatch]);
+
+    const handleAddProduct = () => {
+        setModalContent(<CreateProduct />);
     };
 
-    const handleDelete = (product) => {
-        setModalContent(<ConfirmationModal product={product} onClose={closeModal} />);
-    };
-
-    const renderComponent = () => {
-        switch (activeComponent) {
-            case 'createProduct':
-                return <CreateProduct />;
-            case 'productsList':
-                return <ProductsList onEdit={handleEdit} onDelete={handleDelete} />;
-            default:
-                return <p>Select an option to view</p>;
-        }
+    const handleManageInventory = () => {
+        setShowInventory(true);
     };
 
     return (
-        <div className="manage-products">
-            <button onClick={() => setActiveComponent('createProduct')}>Add Product</button>
-            <button onClick={() => setActiveComponent('productsList')}>Update Inventory</button>
-            <div className="component-container">
-                {renderComponent()}
-            </div>
+        <div className={styles.manageProducts}>
+            <h1>Manage Products</h1>
+            <button onClick={handleAddProduct} className={styles.addProductButton}>Create Product</button>
+            <button onClick={handleManageInventory} className={styles.manageInventoryButton}>Manage Inventory</button>
+            {showInventory && <AdminProductList />}
         </div>
     );
 };

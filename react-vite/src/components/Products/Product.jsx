@@ -8,6 +8,7 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
 
+
     const addToCart = (event) => {
         event.preventDefault();
         const item = {
@@ -33,6 +34,7 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
                     {user && ( // Show Add to Basket button if user is logged in
                         <button onClick={addToCart} className={styles.product__add}>Add to Basket</button>
                     )}
+
                 </div>
             </Link>
         </main>

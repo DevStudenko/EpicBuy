@@ -24,7 +24,9 @@ const UpdateProduct = ({ product, onClose }) => {
       preview_img_url: previewImgUrl,
     };
 
+    console.log('updatedProduct: ', updatedProduct)
     const serverResponse = await dispatch(updateProductThunk(updatedProduct));
+    console.log('Server Res: ', serverResponse);
 
     if (!serverResponse) {
       setErrors({ error: 'Something went wrong. Please try again.' });
