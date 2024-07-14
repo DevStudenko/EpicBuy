@@ -8,32 +8,18 @@ import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getAllCartItemsThunk } from "../../redux/cart";
 import { getCartItemsArray } from "../../redux/cart";
-import { getPurchasesThunk } from "../../redux/purchases";
-
 
 
 function Navigation() {
-  const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
   const cartItems = useSelector(getCartItemsArray);
-
 
   let totalItemCount = 0
   if (cartItems.length) {
     totalItemCount = cartItems.reduce((total, item) => total + item.quantity, totalItemCount)
   }
-
-
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getAllCartItemsThunk());
-      dispatch(getPurchasesThunk());
-    }
-  }, [user, dispatch]);
 
   const logout = (e) => {
     e.preventDefault();

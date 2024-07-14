@@ -1,0 +1,110 @@
+.product {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    color: black;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.productImage {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.productInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.productName {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.productDescription {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+.productRating,
+.productPrice {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.addToCartButton,
+.addToWishlistButton,
+.removeFromWishlistButton,
+.addReviewButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    min-width: 200px;
+    max-width: 30%;
+}
+
+.addToCartButton {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.addToCartButton:hover {
+    background-color: #0056b3;
+}
+
+.addToWishlistButton {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.addToWishlistButton:hover {
+    background-color: #218838;
+}
+
+.removeFromWishlistButton {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.removeFromWishlistButton:hover {
+    background-color: #c82333;
+}
+
+.addReviewButton {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.addReviewButton:hover {
+    background-color: #e0a800;
+}
+
+.productDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Alexandria";
+    background-color: #0a0e15;
+    padding: 20px;
+}
+
+.reviews {
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

@@ -1,11 +1,40 @@
 .reviewItem {
     border-bottom: 1px solid #ccc;
     padding: 10px 0;
+    margin-top: 10px;
 }
 
 .reviewButtons {
     display: flex;
     gap: 10px;
+    margin-top: 10px;
+}
+
+.reviewUpdate,
+.reviewDelete {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reviewUpdate {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.reviewUpdate:hover {
+    background-color: #0056b3;
+}
+
+.reviewDelete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.reviewDelete:hover {
+    background-color: #c82333;
 }
 
 .review__starIcon {

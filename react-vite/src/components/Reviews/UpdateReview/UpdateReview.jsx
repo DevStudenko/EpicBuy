@@ -26,8 +26,8 @@ const UpdateReview = ({ reviewId }) => {
 
     return (
         <div className={styles.container}>
-            <h1>Update Review</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 className={styles.title}>Update Review</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Rating
                     <input
@@ -37,6 +37,7 @@ const UpdateReview = ({ reviewId }) => {
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 <label>
@@ -45,10 +46,11 @@ const UpdateReview = ({ reviewId }) => {
                         value={reviewText}
                         onChange={(e) => setReviewText(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.review && <p className={styles.error}>{errors.review}</p>}
-                <button type="submit">Update</button>
+                <button type="submit" className={styles.submit}>Update</button>
             </form>
         </div>
     );

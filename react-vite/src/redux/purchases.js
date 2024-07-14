@@ -1,16 +1,23 @@
 import { createSelector } from "reselect";
 
-// Action Types
+//! --------------------------------------------------------------------
+//*                          Action Types
+//! --------------------------------------------------------------------
 const MAKE_PURCHASE = 'purchases/makePurchase';
 const GET_ALL = 'purchases/getPurchases';
 
-// Action Creator
+//! --------------------------------------------------------------------
+//*                         Action Creator
+//! --------------------------------------------------------------------
 const action = (type, payload) => ({
     type,
     payload,
 });
 
-// Thunk Action Creator for purchasing items
+//! --------------------------------------------------------------------
+//*                             Thunks
+//! --------------------------------------------------------------------
+
 export const purchaseItemsThunk = (cartItems) => async (dispatch) => {
     try {
         const response = await fetch('/api/purchases', {
@@ -35,7 +42,7 @@ export const purchaseItemsThunk = (cartItems) => async (dispatch) => {
         return { errors: 'Something went wrong. Please try again.' };
     }
 };
-
+//! --------------------------------------------------------------------
 
 export const getPurchasesThunk = () => async (dispatch) => {
     try {
@@ -65,7 +72,9 @@ export const getPurchasesArray = createSelector(
     (purchases) => Object.values(purchases)
 );
 
-// Reducer
+//! --------------------------------------------------------------------
+//*                            Reducer
+//! --------------------------------------------------------------------
 const initialState = {};
 const purchaseReducer = (state = initialState, action) => {
     switch (action.type) {

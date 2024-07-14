@@ -10,13 +10,15 @@ import productReducer from "./products";
 import reviewReducer from "./reviews"
 import cartReducer from "./cart";
 import purchaseReducer from "./purchases";
+import favoriteReducer from "./favorites";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   product: productReducer,
   review: reviewReducer,
   cart: cartReducer,
-  purchase: purchaseReducer
+  purchase: purchaseReducer,
+  favorite: favoriteReducer
 });
 
 let enhancer;

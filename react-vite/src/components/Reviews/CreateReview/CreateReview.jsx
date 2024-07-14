@@ -25,8 +25,8 @@ const CreateReview = ({ productId }) => {
 
     return (
         <div className={styles.container}>
-            <h1>Write a Review</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 className={styles.title}>Write a Review</h1>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Rating
                     <input
@@ -36,6 +36,7 @@ const CreateReview = ({ productId }) => {
                         value={rating}
                         onChange={(e) => setRating(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 <label>
@@ -44,10 +45,11 @@ const CreateReview = ({ productId }) => {
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
                         required
+                        className={styles.input}
                     />
                 </label>
                 {errors.review && <p className={styles.error}>{errors.review}</p>}
-                <button type="submit">Submit</button>
+                <button type="submit" className={styles.submit}>Submit</button>
             </form>
         </div>
     );

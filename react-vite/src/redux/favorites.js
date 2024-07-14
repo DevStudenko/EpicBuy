@@ -4,10 +4,9 @@ import { createSelector } from "reselect";
 //*                          Action Types
 //! --------------------------------------------------------------------
 
-export const GET_ALL = "products/getAll";
-export const CREATE = "products/create";
-export const UPDATE = "products/update";
-export const DELETE = "products/delete";
+export const GET_ALL_FAVORITES = "favorites/getAll";
+export const ADD_FAVORITE = "favorites/add";
+export const REMOVE_FAVORITE = "favorites/remove";
 
 //! --------------------------------------------------------------------
 //*                         Action Creator
@@ -21,13 +20,12 @@ const action = (type, payload) => ({
 //! --------------------------------------------------------------------
 //*                             Thunks
 //! --------------------------------------------------------------------
-
-export const getAllProductsThunk = () => async (dispatch) => {
+export const getAllFavoritesThunk = () => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products`);
+        const response = await fetch(`/api/favorites`);
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(GET_ALL, data));
+            dispatch(action(GET_ALL_FAVORITES, data));
             return data;
         }
     } catch (error) {
@@ -35,78 +33,46 @@ export const getAllProductsThunk = () => async (dispatch) => {
     }
 };
 //! --------------------------------------------------------------------
-export const createProductThunk = (data) => async (dispatch) => {
+export const addFavoriteThunk = (productId) => async (dispatch) => {
     try {
-        const response = await fetch("/api/products", {
+        const response = await fetch(`/api/favorites/${productId}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({ product_id: productId }),
         });
 
         if (response.ok) {
             const data = await response.json();
-            dispatch(action(CREATE, data));
+            dispatch(action(ADD_FAVORITE, data));
             return data;
         }
     } catch (error) {
         console.log(error);
     }
 };
-
 //! --------------------------------------------------------------------
-
-export const deleteProductThunk = (product) => async (dispatch) => {
+export const removeFavoriteThunk = (productId) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products/${product.id}`, {
+        const response = await fetch(`/api/favorites/${productId}`, {
             method: "DELETE",
-
         });
+
         if (response.ok) {
-            dispatch(action(DELETE, product));
+            dispatch(action(REMOVE_FAVORITE, productId));
         }
     } catch (error) {
         console.log(error);
     }
 };
-
-//! --------------------------------------------------------------------
-
-export const updateProductThunk = (product) => async (dispatch) => {
-    try {
-        const response = await fetch(`/api/products/${product.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(product)
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            dispatch(action(UPDATE, data));
-            return data;
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 
 //! --------------------------------------------------------------------
 //*                            Selectors
 //! --------------------------------------------------------------------
-export const getProductsArray = createSelector(
-    (state) => state.product,
-    (product) => {
-        let arr = [];
-        for (const key in product) {
-            if (Number.isInteger(Number(key))) {
-                arr.push(product[key]);
-            }
-        }
-        return arr;
-    }
+export const getFavoritesArray = createSelector(
+    (state) => state.favorite,
+    (favorites) => Object.values(favorites)
 );
 
 //! --------------------------------------------------------------------
@@ -114,22 +80,22 @@ export const getProductsArray = createSelector(
 //! --------------------------------------------------------------------
 
 const initialState = {};
-const productReducer = (state = initialState, action) => {
+
+const favoriteReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL: {
-            const newState = { ...state };
-            action.payload.forEach((product) => (newState[product.id] = product));
+        case GET_ALL_FAVORITES: {
+            const newState = {};
+            action.payload.forEach((favorite) => {
+                newState[favorite.id] = favorite;
+            });
             return newState;
         }
-        case CREATE:
-            return { ...state, [action.payload.id]: action.payload };
-
-        case UPDATE: {
+        case ADD_FAVORITE: {
             return { ...state, [action.payload.id]: action.payload };
         }
-        case DELETE: {
-            let newState = { ...state };
-            delete newState[action.payload.id];
+        case REMOVE_FAVORITE: {
+            const newState = { ...state };
+            delete newState[action.payload];
             return newState;
         }
         default:
@@ -137,4 +103,4 @@ const productReducer = (state = initialState, action) => {
     }
 };
 
-export default productReducer;
+export default favoriteReducer;

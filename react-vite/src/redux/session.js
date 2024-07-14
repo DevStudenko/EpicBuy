@@ -2,6 +2,9 @@ const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
 import { resetItems } from "./cart";
 
+//! --------------------------------------------------------------------
+//*                         Action Creators
+//! --------------------------------------------------------------------
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -12,6 +15,9 @@ const removeUser = () => ({
   type: REMOVE_USER
 });
 
+//! --------------------------------------------------------------------
+//*                             Thunks
+//! --------------------------------------------------------------------
 
 export const thunkAuthenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/");
@@ -66,6 +72,10 @@ export const thunkLogout = () => async (dispatch) => {
   dispatch(removeUser());
   dispatch(resetItems());
 };
+
+//! --------------------------------------------------------------------
+//*                            Reducer
+//! --------------------------------------------------------------------
 
 const initialState = { user: null };
 

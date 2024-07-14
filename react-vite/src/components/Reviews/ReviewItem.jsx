@@ -17,10 +17,12 @@ const ReviewItem = ({ review }) => {
                     <OpenModalButton
                         buttonText="Update"
                         modalComponent={<UpdateReview reviewId={review.id} />}
+                        className={styles.reviewUpdate}
                     />
                     <OpenModalButton
                         buttonText="Delete"
                         modalComponent={<DeleteReview reviewId={review.id} />}
+                        className={styles.reviewDelete}
                     />
                 </div>
             )}

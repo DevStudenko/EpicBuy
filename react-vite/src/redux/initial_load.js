@@ -1,15 +1,19 @@
 import { GET_ALL as GET_ALL_PRODUCTS } from "./products";
 import { GET_ALL as GET_ALL_REVIEWS } from "./reviews";
 
+//! --------------------------------------------------------------------
+//*                         Action Creator Utility
+//! --------------------------------------------------------------------
 
-
-// Action creator utility
 const action = (type, payload) => ({
     type,
     payload,
 });
 
-// Initial load thunk
+//! --------------------------------------------------------------------
+//*                         Initial Load Thunk
+//! --------------------------------------------------------------------
+
 export const initialLoadThunk = () => async (dispatch) => {
     try {
         const response = await fetch("/api/initial_load");
