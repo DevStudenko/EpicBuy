@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateReviewThunk } from '../../../redux/reviews';
 import { useModal } from '../../../context/Modal';
 import styles from './UpdateReview.module.css';
+import StarRating from '../StarRating/StarRating';
+import { getProductByIdThunk } from '../../../redux/products';
 
 const UpdateReview = ({ reviewId }) => {
     const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const UpdateReview = ({ reviewId }) => {
         if (response.errors) {
             setErrors(response.errors);
         } else {
+            dispatch(getProductByIdThunk(response.product_id));
             closeModal();
         }
     };
@@ -30,15 +33,7 @@ const UpdateReview = ({ reviewId }) => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Rating
-                    <input
-                        type="number"
-                        min="1"
-                        max="5"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                        required
-                        className={styles.input}
-                    />
+                    <StarRating setRating={setRating} />
                 </label>
                 <label>
                     Review

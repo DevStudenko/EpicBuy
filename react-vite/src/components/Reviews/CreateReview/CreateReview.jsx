@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addReviewThunk } from '../../../redux/reviews';
+import { getProductByIdThunk } from '../../../redux/products';
 import { useModal } from '../../../context/Modal';
+import StarRating from '../StarRating/StarRating';
 import styles from './CreateReview.module.css';
 
 const CreateReview = ({ productId }) => {
@@ -19,6 +21,7 @@ const CreateReview = ({ productId }) => {
         if (response.errors) {
             setErrors(response.errors);
         } else {
+            dispatch(getProductByIdThunk(productId));
             closeModal();
         }
     };
@@ -29,15 +32,16 @@ const CreateReview = ({ productId }) => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Rating
-                    <input
+                    {/* <input
                         type="number"
                         min="1"
                         max="5"
                         value={rating}
-                        onChange={(e) => setRating(e.target.value)}
+                        onChange={(e) => setRating(Number(e.target.value))}
                         required
                         className={styles.input}
-                    />
+                    /> */}
+                    <StarRating setRating={setRating} />
                 </label>
                 <label>
                     Review

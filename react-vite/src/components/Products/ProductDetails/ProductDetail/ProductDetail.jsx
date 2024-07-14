@@ -5,6 +5,7 @@ import { getPurchasesArray } from '../../../../redux/purchases';
 import { getReviewsArray } from '../../../../redux/reviews';
 import OpenModalButton from '../../../OpenModalButton';
 import CreateReview from '../../../Reviews/CreateReview';
+import AverageStarRating from '../../../Reviews/StarRating/AverageStarRating';
 import styles from './ProductDetail.module.css';
 
 const ProductDetail = ({ product }) => {
@@ -12,12 +13,16 @@ const ProductDetail = ({ product }) => {
     const user = useSelector((state) => state.session.user);
     const userFavorites = useSelector(getFavoritesArray);
     const reviews = useSelector(getReviewsArray);
-    const { id, name, description, price, preview_img_url, avgRating } = product;
-    const isFavorite = userFavorites.some(favorite => favorite.product_id === id);
     const purchases = useSelector(getPurchasesArray);
+
+    const { id, name, description, price, preview_img_url, avgRating } = product;
+
+
+    const isFavorite = userFavorites.some(favorite => favorite.product_id === id);
     const hasPurchased = purchases?.some(purchase => purchase.product_id === id);
     const productReviews = reviews.filter(review => review.product_id === id);
     const userReview = productReviews.find(review => review.user_id === user?.id);
+
 
     const handleAddToCart = () => {
         const item = {
@@ -38,6 +43,7 @@ const ProductDetail = ({ product }) => {
         }
     };
 
+
     return (
         <div className={styles.product}>
             <img src={preview_img_url} alt={`${name}`} className={styles.productImage} />
@@ -45,7 +51,7 @@ const ProductDetail = ({ product }) => {
                 <h1 className={styles.productName}>{name}</h1>
                 <p className={styles.productDescription}>{description}</p>
                 <div className={styles.productRating}>
-                    Rating: {avgRating ? avgRating.toFixed(1) : "New"}
+                    <AverageStarRating rating={avgRating} />
                 </div>
                 <div className={styles.productPrice}>${price}</div>
                 <button onClick={handleAddToCart} className={styles.addToCartButton}>Add to Basket</button>

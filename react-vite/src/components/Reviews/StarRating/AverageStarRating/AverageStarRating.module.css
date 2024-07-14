@@ -1,0 +1,28 @@
+.starRating {
+    display: flex;
+    align-items: center;
+}
+
+.starContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.star {
+    color: grey;
+    
+}
+
+.filled {
+    color: #ffc107;
+
+}
+
+.starContainer .filled::before {
+    content: attr(data-content);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}

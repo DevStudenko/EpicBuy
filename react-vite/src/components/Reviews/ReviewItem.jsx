@@ -8,10 +8,28 @@ import { IoStar } from "react-icons/io5";
 const ReviewItem = ({ review }) => {
     const user = useSelector(state => state.session.user);
 
+    const renderStars = (rating) => {
+        return (
+            <div className={styles.stars}>
+                {[...Array(5)].map((star, i) => {
+                    const ratingValue = i + 1;
+                    return (
+                        <IoStar
+                            key={i}
+                            className={styles.review__starIcon}
+                            color={ratingValue <= rating ? "#ffc107" : "grey"}
+                            size={20}
+                        />
+                    );
+                })}
+            </div>
+        );
+    };
+
     return (
         <div className={styles.reviewItem}>
             <p><strong>{review.username}</strong>: {review.review}</p>
-            <p>Rating: <IoStar className={styles.review__starIcon} />{review.rating ? review.rating.toFixed(1) : "New"}</p>
+            <div>Rating: {renderStars(review.rating)}</div>
             {user && review.user_id === user.id && (
                 <div className={styles.reviewButtons}>
                     <OpenModalButton
@@ -21,13 +39,13 @@ const ReviewItem = ({ review }) => {
                     />
                     <OpenModalButton
                         buttonText="Delete"
-                        modalComponent={<DeleteReview reviewId={review.id} />}
+                        modalComponent={<DeleteReview review={review} />}
                         className={styles.reviewDelete}
                     />
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default ReviewItem;

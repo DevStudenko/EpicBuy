@@ -5,6 +5,7 @@ import { createSelector } from "reselect";
 //! --------------------------------------------------------------------
 
 export const GET_ALL = "products/getAll";
+export const GET_ONE = "products/getById";
 export const CREATE = "products/create";
 export const UPDATE = "products/update";
 export const DELETE = "products/delete";
@@ -91,6 +92,19 @@ export const updateProductThunk = (product) => async (dispatch) => {
         console.log(error);
     }
 };
+//! --------------------------------------------------------------------
+export const getProductByIdThunk = (productId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/products/${productId}`);
+        if (response.ok) {
+            const data = await response.json();
+            dispatch(action(GET_ONE, data));
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 
 //! --------------------------------------------------------------------
@@ -123,8 +137,10 @@ const productReducer = (state = initialState, action) => {
         }
         case CREATE:
             return { ...state, [action.payload.id]: action.payload };
-
         case UPDATE: {
+            return { ...state, [action.payload.id]: action.payload };
+        }
+        case GET_ONE: {
             return { ...state, [action.payload.id]: action.payload };
         }
         case DELETE: {
