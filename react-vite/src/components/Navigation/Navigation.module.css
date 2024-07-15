@@ -1,3 +1,15 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #0a0e15;
+  z-index: 1000;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .profile-dropdown {
   position: absolute;
 }
@@ -7,9 +19,8 @@
   height: 38px;
 }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
+.nav__signUp:hover {
+  color: rgb(58, 245, 188);
 }
 
 .nav__left {
@@ -20,16 +31,10 @@
 }
 
 .nav__right {
-  /* padding: 20px; */
-  /* width: 50px; */
-  /* margin: 20px; */
   width: 400px;
   display: flex;
   justify-content: space-between;
-  /* justify-content: center;
-  align-items: center; */
 }
-
 
 .nav__optionOne {
   width: 110px;
@@ -58,6 +63,22 @@
   padding: 20px;
 }
 
+.nav__optionFour {
+  padding-left: 0;
+}
+
+.nav__logout:hover {
+  color: red;
+}
+
+.profileLink {
+  color: white;
+}
+
+.profileLink:hover {
+  color: rgb(58, 245, 188);
+}
+
 .nav__search {
   display: flex;
   width: 50%;
@@ -70,7 +91,6 @@
 }
 
 .nav__searchIcon {
-  /* padding: 5px; */
   border: 1px solid white;
   margin-left: 5px;
   width: 20px;
@@ -80,5 +100,9 @@
 .basket {
   width: 35px;
   height: 100%;
-  /* padding: 20px; */
+  color: white;
+}
+
+.basket:hover {
+  color: blue;
 }

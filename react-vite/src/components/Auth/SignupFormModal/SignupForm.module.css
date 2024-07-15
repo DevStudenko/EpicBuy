@@ -24,6 +24,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 .email {
   background-color: #313338;
   border: none;
@@ -32,6 +33,7 @@
   border-radius: 5px;
   padding-left: 10px;
 }
+
 .user_name {
   background-color: #313338;
   border: none;
@@ -40,6 +42,7 @@
   border-radius: 5px;
   padding-left: 10px;
 }
+
 .password {
   padding-left: 10px;
   background-color: #313338;
@@ -48,6 +51,7 @@
   width: 370px;
   border-radius: 5px;
 }
+
 .confirm_password {
   padding-left: 10px;
   background-color: #313338;
@@ -84,6 +88,14 @@
   height: 30px;
   border-radius: 10px;
   background-color: rgb(65, 81, 41);
+}
+
+.switchModal {
+  padding: 20px
+}
+
+.switchButton:hover {
+  color: rgb(90, 147, 72);
 }
 
 .cancel:hover {

@@ -1,39 +1,47 @@
 .main {
     display: flex;
-    justify-content: space-evenly;
-    width: 1200px;
+    justify-content: center;
     margin: 0 auto;
+    max-width: 340px;
+    max-height: 420px;
+    width: 100%;
 }
 
 .product__container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    /* padding: 20px; */
+    justify-content: center;
+    text-decoration: none;
+    /* Remove link decoration */
 }
-
 
 .product {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    margin: 10px;
-    padding: 20px;
+    /* margin: 10px; */
+    /* padding: 20px; */
     width: 100%;
-    min-width: 245px;
-    max-width: 300px;
     background-color: white;
     border-radius: 5px;
-    color: black
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Add a subtle shadow */
+    transition: transform 0.3s ease;
+    /* Smooth hover effect */
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    /* Lift on hover */
 }
 
 .product>img {
-    height: 214px;
-    width: 100%;
-    object-fit: fit;
-    /* margin-bottom: 15px; */
-    /* object-position: 50% 50%; */
+    height: 225px;
+    width: 214px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
 }
 
 .product>button {
@@ -41,33 +49,33 @@
     margin-top: 10px;
     color: black;
     border-radius: 5px;
-    padding: 5px;
+    padding: 8px;
+    margin: 0 10px 10px 10px;
+    width: 200px;
+    border: none;
+    cursor: pointer;
 }
 
 .product>button:hover {
     background-color: rgb(48, 205, 158);
 }
 
-.product__price {
-    margin-top: 5px;
-}
-
 .product__info {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    padding: 5px;
+    padding: 10px;
+    text-align: center;
 }
 
 .product__name {
-    display: flex;
     font-weight: bold;
-    justify-content: center;
-    padding: 10px;
+    /* padding: 10px 0; */
 }
 
 .product__price,
 .product__rating {
     padding: 5px;
-    margin-left: 10px;
 }
 
 .product__starIcon {

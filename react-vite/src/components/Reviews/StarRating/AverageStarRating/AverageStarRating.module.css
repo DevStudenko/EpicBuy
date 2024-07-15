@@ -1,5 +1,6 @@
 .starRating {
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -10,7 +11,7 @@
 
 .star {
     color: grey;
-    
+
 }
 
 .filled {

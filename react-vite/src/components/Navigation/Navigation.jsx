@@ -43,13 +43,13 @@ function Navigation() {
           {user ? `Welcome, ${user.username}` :
             <OpenModalButton
               buttonText="Sign Up"
-              className={styles.login}
+              className={styles.nav__signUp}
               modalComponent={<SignupFormModal />}
             />
           }
         </span>
         <span className={styles.nav__optionThree}>
-          {user && <NavLink to="/profile">
+          {user && <NavLink className={styles.profileLink} to="/profile">
             Profile
           </NavLink>}
         </span>

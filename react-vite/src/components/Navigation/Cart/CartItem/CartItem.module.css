@@ -1,79 +1,96 @@
 .main {
     display: flex;
-    justify-content: space-evenly;
-    width: 1200px;
+    justify-content: center;
+    width: 100%;
     margin: 0 auto;
 }
 
 .items__container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    /* padding: 20px; */
+    justify-content: center;
+    flex-wrap: wrap;
 }
-
 
 .item {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    /* Change to row for horizontal layout */
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin: 10px;
     padding: 20px;
     width: 100%;
-    min-width: 245px;
-    max-width: 300px;
+    max-width: none;
+    /* Remove max-width to allow full width */
     background-color: white;
-    border-radius: 5px;
-    color: black
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.item:hover {
+    transform: translateY(-5px);
 }
 
 .item>img {
-    height: 214px;
-    width: 100%;
-    object-fit: fit;
-    /* margin-bottom: 15px; */
-    /* object-position: 50% 50%; */
-}
-
-.item>button {
-    background-color: red;
-    margin-top: 10px;
-    color: black;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-/* .item>button:hover {
-    background-color: red;
-} */
-
-.item__price {
-    margin-top: 5px;
+    height: 200px;
+    width: 200px;
+    /* Set a fixed width for the image */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+    /* Add some space between the image and info */
 }
 
 .item__info {
-    width: 100%;
-    padding: 5px;
+    flex-grow: 1;
+    /* Allow the info section to grow */
+    padding: 10px;
+    text-align: left;
+    /* Align text to the left */
 }
 
 .item__name {
-    display: flex;
     font-weight: bold;
-    justify-content: center;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .item__price,
-.item__rating {
-    padding: 5px;
-    margin-left: 10px;
+.item__rating,
+.item__quantity {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .item__starIcon {
-    color: red;
+    color: #ffc107;
 }
 
-.checkout {
+.item__quantity select {
+    margin-left: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.item>button {
+    background-color: #dc3545;
     color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    margin-left: 20px;
+    /* Add some space between the info and button */
+}
+
+.item>button:hover {
+    background-color: #c82333;
 }

@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import styles from "./CartItem.module.css";
-import { IoStar } from "react-icons/io5";
 import { useState } from "react";
 import { updateCartItemThunk, removeCartItemThunk } from "../../../../redux/cart";
+import AverageStarRating from '../../../Reviews/StarRating/AverageStarRating';
 
 const CartItem = ({ id, name, preview_img_url, price, quantity, avgRating }) => {
     const dispatch = useDispatch();
@@ -32,12 +32,11 @@ const CartItem = ({ id, name, preview_img_url, price, quantity, avgRating }) => 
                     title={name}
                 >
                     <img src={preview_img_url} alt={name} />
-                    <div className={styles.product__info}>
+                    <div className={styles.item__info}>
                         <div className={styles.item__name}>{name}</div>
                         <div className={styles.item__price}>${price}</div>
                         <div className={styles.item__rating}>
-                            <IoStar className={styles.item__starIcon} />
-                            {avgRating ? avgRating.toFixed(1) : "New"}
+                            {avgRating > 0 ? <AverageStarRating rating={avgRating} /> : "New"}
                         </div>
                         <div className={styles.item__quantity}>
                             Quantity:

@@ -6,6 +6,7 @@ import ManageProducts from '../Products/ManageProducts';
 import TransactionHistory from './TransactionHistory';
 import default_user from '../../../../assets/images/default_user.jpg';
 import { thunkAuthenticate } from '../../redux/session';
+import styles from './Profile.module.css';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -34,24 +35,44 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile">
-      <img src={user?.profile_image_url || default_user} alt={`${user?.username}'s profile`} />
+    <div className={styles.profile}>
+      <img className={styles.profile__img} src={user?.profile_image_url || default_user} alt={`${user?.username}'s profile`} />
       <h2>{user?.username}</h2>
       <p>Email: {user?.email}</p>
       <p>Balance: ${user?.balance.toFixed(2)}</p>
       {!isAdmin && (
         <>
-          <button onClick={() => setActiveComponent('favorites')}>Favorites</button>
-          <button onClick={() => setActiveComponent('purchaseHistory')}>Purchase History</button>
+          <button
+            onClick={() => setActiveComponent('favorites')}
+            className={styles.wishlistButton}
+          >
+            Wishlist
+          </button>
+          <button
+            onClick={() => setActiveComponent('purchaseHistory')}
+            className={styles.purchaseHistoryButton}
+          >
+            Purchase History
+          </button>
         </>
       )}
       {isAdmin && (
         <>
-          <button onClick={() => setActiveComponent('manageProducts')}>Manage Products</button>
-          <button onClick={() => setActiveComponent('transactionHistory')}>Transaction History</button>
+          <button
+            onClick={() => setActiveComponent('manageProducts')}
+            className={styles.manageProductsButton}
+          >
+            Manage Products
+          </button>
+          <button
+            onClick={() => setActiveComponent('transactionHistory')}
+            className={styles.transactionHistoryButton}
+          >
+            Transaction History
+          </button>
         </>
       )}
-      <div className="component-container">
+      <div className={styles.componentContainer}>
         {renderComponent()}
       </div>
     </div>

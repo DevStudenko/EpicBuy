@@ -1,6 +1,7 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getProductsArray } from '../../../redux/products';
+import { getProductsArray, getProductByIdThunk } from '../../../redux/products';
 import { getReviewsArray } from '../../../redux/reviews';
 import ReviewItem from '../../Reviews/ReviewItem';
 import ProductDetail from './ProductDetail';
@@ -9,11 +10,18 @@ import styles from './ProductDetails.module.css';
 const ProductDetails = () => {
     const { id } = useParams();
     const productId = parseInt(id);
+    const dispatch = useDispatch();
     const products = useSelector(getProductsArray);
     const reviews = useSelector(getReviewsArray);
 
     const product = products.find(product => product.id === productId);
     const productReviews = reviews.filter(review => review.product_id === productId);
+
+    useEffect(() => {
+        if (!product) {
+            dispatch(getProductByIdThunk(productId));
+        }
+    }, [productId, product, dispatch]);
 
     if (!product) {
         return <div>Loading...</div>;

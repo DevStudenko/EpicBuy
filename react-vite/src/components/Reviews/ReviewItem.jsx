@@ -28,8 +28,9 @@ const ReviewItem = ({ review }) => {
 
     return (
         <div className={styles.reviewItem}>
-            <p><strong>{review.username}</strong>: {review.review}</p>
-            <div>Rating: {renderStars(review.rating)}</div>
+            <div className={styles.reviewAuthor}>{review.username}</div>
+            <div>{renderStars(review.rating)}</div>
+            <p className={styles.reviewText}>{review.review}</p>
             {user && review.user_id === user.id && (
                 <div className={styles.reviewButtons}>
                     <OpenModalButton

@@ -27,18 +27,32 @@ const Cart = () => {
       <div className={styles.checkout__title}>
         <h1>Checkout</h1>
       </div>
-      {items.map(({ id, quantity, avg_rating, product: { name, preview_img_url, price } }) => (
-        <CartItem
-          key={id}
-          id={id}
-          name={name}
-          preview_img_url={preview_img_url}
-          price={price}
-          quantity={quantity}
-          avgRating={avg_rating}
-        />
-      ))}
-      <button onClick={handlePurchase} className={styles.purchaseButton}>Purchase</button>
+      <div className={styles.checkout__items}>
+        {items.length > 0 ? (
+          items.map(({ id, quantity, avg_rating, product: { name, preview_img_url, price } }) => (
+            <CartItem
+              key={id}
+              id={id}
+              name={name}
+              preview_img_url={preview_img_url}
+              price={price}
+              quantity={quantity}
+              avgRating={avg_rating}
+            />
+          ))
+        ) : (
+          <p className={styles.emptyCartMessage}>Your cart is empty.</p>
+        )}
+      </div>
+      <div className={styles.checkout__button}>
+        <button
+          onClick={handlePurchase}
+          className={styles.purchaseButton}
+          disabled={items.length === 0}
+        >
+          Purchase
+        </button>
+      </div>
     </div>
   );
 };
