@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     margin: 0 auto;
-    max-width: 340px;
+    max-width: 320px;
     max-height: 420px;
     width: 100%;
 }
@@ -41,7 +41,9 @@
     height: 225px;
     width: 214px;
     object-fit: cover;
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
+    padding: 5px;
+
 }
 
 .product>button {
