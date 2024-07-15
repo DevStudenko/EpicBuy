@@ -73,6 +73,25 @@
   transition: all 0.2s ease-in-out;
 }
 
+.demoLogin {
+  width: 210px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: blue;
+  transition: all 0.2s ease-in-out;
+  margin-top: 10px;
+}
+
+.adminLogin {
+  width: 210px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: orange;
+  transition: all 0.2s ease-in-out;
+  margin: 10px;
+}
+
+
 .login:hover {
   width: 220px;
   height: 50px;

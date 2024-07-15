@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from '../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
 import OpenModalButton from "../OpenModalButton";
@@ -10,20 +10,21 @@ import { thunkLogout } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { getCartItemsArray } from "../../redux/cart";
 
-
 function Navigation() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(state => state.session.user);
   const cartItems = useSelector(getCartItemsArray);
 
-  let totalItemCount = 0
+  let totalItemCount = 0;
   if (cartItems.length) {
-    totalItemCount = cartItems.reduce((total, item) => total + item.quantity, totalItemCount)
+    totalItemCount = cartItems.reduce((total, item) => total + item.quantity, totalItemCount);
   }
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(thunkLogout());
+    navigate('/');
   };
 
   return (
@@ -56,8 +57,7 @@ function Navigation() {
         <span className={styles.nav__optionFour}>
           {user && <button className={styles.nav__logout} onClick={logout}>
             Log Out
-          </button>
-          }
+          </button>}
         </span>
         <span className={styles.nav__optionTwo}>
           {user && <NavLink to="/cart">
