@@ -3,7 +3,7 @@ import Product from '../Product';
 import { getProductsArray } from '../../../redux/products';
 import styles from './ProductsList.module.css';
 
-const ProductsList = ({ onEdit, onDelete }) => {
+const ProductsList = () => {
   const products = useSelector(getProductsArray);
   const availableProducts = products.filter(product => product.quantity > 0);
 
@@ -17,8 +17,8 @@ const ProductsList = ({ onEdit, onDelete }) => {
           preview_img_url={product.preview_img_url}
           price={product.price}
           avgRating={product.avgRating}
-          onEdit={onEdit}
-          onDelete={onDelete}
+        // onEdit={onEdit}
+        // onDelete={onDelete}
         />
       ))}
     </div>

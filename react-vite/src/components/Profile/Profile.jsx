@@ -6,7 +6,9 @@ import ManageProducts from '../Products/ManageProducts';
 import TransactionHistory from './TransactionHistory';
 import default_user from '../../../../assets/images/default_user.jpg';
 import { thunkAuthenticate } from '../../redux/session';
+import { getAllFavoritesThunk } from '../../redux/favorites';
 import styles from './Profile.module.css';
+import { getAllProductsThunk } from '../../redux/products';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -17,7 +19,11 @@ const Profile = () => {
   // Re-fetch the user data when the component mounts to ensure it's up-to-date
   useEffect(() => {
     dispatch(thunkAuthenticate());
-  }, [dispatch]);
+    if (user && !isAdmin) {
+      dispatch(getAllFavoritesThunk());
+      dispatch(getAllProductsThunk());
+    }
+  }, [dispatch, isAdmin, user]);
 
   const renderComponent = () => {
     switch (activeComponent) {
