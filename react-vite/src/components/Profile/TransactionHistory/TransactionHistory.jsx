@@ -1,6 +1,6 @@
 const TransactionHistory = () => {
   return (
-    <div>TransactionHistory</div>
+    <div>Feature coming soon!</div>
   )
 }
 
