@@ -20,13 +20,9 @@ const ProductDetails = () => {
 
 
     useEffect(() => {
-        if (!product) {
             dispatch(getProductByIdThunk(productId));
-        }
-        if (!productReviews.length) {
             dispatch(getAllReviewsThunk());
-        }
-    }, [productId, product, dispatch, productReviews]);
+    }, []);
 
     if (!product) {
         return <div>Loading...</div>;
