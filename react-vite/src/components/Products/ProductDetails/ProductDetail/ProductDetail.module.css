@@ -43,7 +43,8 @@
 
 .addToCartButton,
 .addToWishlistButton,
-.removeFromWishlistButton {
+.removeFromWishlistButton,
+.addReviewButton {
     margin-top: 10px;
     padding: 10px 20px;
     border: none;
@@ -78,6 +79,15 @@
 
 .removeFromWishlistButton:hover {
     background-color: #c82333;
+}
+
+.addReviewButton {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.addReviewButton:hover {
+    background-color: #e0a800;
 }
 
 .productDetails {
