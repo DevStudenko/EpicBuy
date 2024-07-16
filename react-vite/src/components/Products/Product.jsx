@@ -8,6 +8,7 @@ const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
 
+
     const addToCart = (event) => {
         event.preventDefault();
         const item = {

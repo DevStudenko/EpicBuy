@@ -10,7 +10,6 @@ const ManageProducts = () => {
     const dispatch = useDispatch();
     const { setModalContent } = useModal();
 
-
     useEffect(() => {
         dispatch(getAllProductsThunk());
     }, [dispatch]);
@@ -18,7 +17,6 @@ const ManageProducts = () => {
     const handleAddProduct = () => {
         setModalContent(<CreateProduct />);
     };
-
 
     return (
         <div className={styles.manageProducts}>

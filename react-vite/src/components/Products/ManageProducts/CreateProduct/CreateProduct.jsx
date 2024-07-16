@@ -58,7 +58,7 @@ const CreateProduct = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
-                        className={styles.input}
+                        className={styles.textarea}
                     />
                 </label>
                 {errors.description && (

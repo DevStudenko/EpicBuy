@@ -48,6 +48,7 @@ const UpdateProduct = ({ product }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
+            className={styles.input}
           />
         </label>
         {errors.name && <p className={styles.error}>{errors.name}</p>}
@@ -57,6 +58,7 @@ const UpdateProduct = ({ product }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
+            className={styles.textarea}
           />
         </label>
         {errors.description && <p className={styles.error}>{errors.description}</p>}
@@ -67,6 +69,7 @@ const UpdateProduct = ({ product }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
+            className={styles.input}
           />
         </label>
         {errors.price && <p className={styles.error}>{errors.price}</p>}
@@ -77,6 +80,7 @@ const UpdateProduct = ({ product }) => {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
             required
+            className={styles.input}
           />
         </label>
         {errors.quantity && <p className={styles.error}>{errors.quantity}</p>}
@@ -86,11 +90,12 @@ const UpdateProduct = ({ product }) => {
             type="text"
             value={previewImgUrl}
             onChange={(e) => setPreviewImgUrl(e.target.value)}
+            className={styles.input}
           />
         </label>
         {errors.previewImgUrl && <p className={styles.error}>{errors.previewImgUrl}</p>}
         {errors.error && <p className={styles.error}>{errors.error}</p>}
-        <button type="submit">Update Product</button>
+        <button type="submit" className={styles.submit}>Update Product</button>
       </form>
     </div>
   );

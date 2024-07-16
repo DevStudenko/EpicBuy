@@ -43,8 +43,7 @@
 
 .addToCartButton,
 .addToWishlistButton,
-.removeFromWishlistButton,
-.addReviewButton {
+.removeFromWishlistButton {
     margin-top: 10px;
     padding: 10px 20px;
     border: none;
@@ -81,15 +80,6 @@
     background-color: #c82333;
 }
 
-.addReviewButton {
-    background-color: #ffc107;
-    color: #fff;
-}
-
-.addReviewButton:hover {
-    background-color: #e0a800;
-}
-
 .productDetails {
     display: flex;
     flex-direction: column;
@@ -107,4 +97,23 @@
     padding: 20px;
     border-radius: 0 0 10px 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.signInPrompt {
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.signInButton {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.signInButton:hover {
+    color: #0056b3;
 }

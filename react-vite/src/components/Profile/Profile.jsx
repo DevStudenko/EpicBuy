@@ -17,13 +17,13 @@ const Profile = () => {
   const isAdmin = user?.isAdmin === true;
 
   // Re-fetch the user data when the component mounts to ensure it's up-to-date
-  useEffect(() => {
-    dispatch(thunkAuthenticate());
-    if (user && !isAdmin) {
+    useEffect(() => {
+      dispatch(thunkAuthenticate());
       dispatch(getAllFavoritesThunk());
       dispatch(getAllProductsThunk());
-    }
-  }, [dispatch, isAdmin, user]);
+    }, [dispatch]);
+
+
 
   const renderComponent = () => {
     switch (activeComponent) {

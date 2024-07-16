@@ -78,7 +78,19 @@
 .product__price,
 .product__rating {
     padding: 5px;
+    width: 100px;
+    /* margin: 0 auto; */
 }
+
+.product__price {
+    padding-left: 50px;
+}
+
+.product__rating {
+    margin: 0 auto;
+}
+
+
 
 .product__starIcon {
     color: red;
