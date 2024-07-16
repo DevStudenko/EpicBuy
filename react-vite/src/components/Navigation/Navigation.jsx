@@ -2,7 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import logo from '../../../../assets/images/Logo.png';
 import styles from "./Navigation.module.css";
 import OpenModalButton from "../OpenModalButton";
-import SignupFormModal from "../Auth/SignupFormModal"
+import SignupFormModal from "../Auth/SignupFormModal";
 import { FaSearch } from "react-icons/fa";
 import { MdOutlineShoppingBasket } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -33,11 +33,13 @@ function Navigation() {
         <NavLink to="/"><img className={styles.logo} src={logo} alt="Epic Buy Logo" /></NavLink>
         <h4>Epic Buy</h4>
       </div>
-      <div className={styles.nav__search}>
-        <input className={styles.nav__searchInput} type="text" />
-        <button className={styles.nav__searchIcon}>
-          <FaSearch />
-        </button>
+      <div className={styles.nav__searchContainer}>
+        <div className={styles.nav__search}>
+          <input className={styles.nav__searchInput} type="text" placeholder="Search products..." />
+          <button className={styles.nav__searchIcon}>
+            <FaSearch />
+          </button>
+        </div>
       </div>
       <div className={styles.nav__right}>
         <span className={styles.nav__optionOne}>
@@ -60,10 +62,10 @@ function Navigation() {
           </button>}
         </span>
         <span className={styles.nav__optionTwo}>
-          {user && <NavLink to="/cart">
+          {user && <NavLink to="/cart" className={styles.basketContainer}>
             <MdOutlineShoppingBasket className={styles.basket} />
+            {totalItemCount > 0 && <span className={styles.itemCount}>{totalItemCount}</span>}
           </NavLink>}
-          <span className={styles.itemCount}>{totalItemCount > 0 && totalItemCount}</span>
         </span>
       </div>
     </div>

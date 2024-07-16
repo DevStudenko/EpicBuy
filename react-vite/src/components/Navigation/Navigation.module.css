@@ -1,6 +1,9 @@
+/* src/components/Navigation/Navigation.module.css */
+
 .nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -10,99 +13,118 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.profile-dropdown {
-  position: absolute;
-}
-
 .logo {
   width: 38px;
   height: 38px;
 }
 
-.nav__signUp:hover {
-  color: rgb(58, 245, 188);
-}
-
 .nav__left {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 20px;
+  gap: 10px;
 }
 
 .nav__right {
-  width: 400px;
   display: flex;
-  justify-content: space-between;
-}
-
-.nav__optionOne {
-  width: 110px;
-  height: auto;
-}
-
-.nav__optionTwo {
-  display: flex;
-  width: 60px;
-  height: auto;
   align-items: center;
-  justify-content: space-evenly;
-}
-
-.itemCount {
-  height: 5px;
-}
-
-.nav__optionThree {
-  width: 110px;
+  gap: 20px;
 }
 
 .nav__optionOne,
 .nav__optionThree,
 .nav__optionFour {
-  padding: 20px;
-}
-
-.nav__optionFour {
-  padding-left: 0;
-}
-
-.nav__logout:hover {
-  color: red;
-}
-
-.profileLink {
+  padding: 10px;
   color: white;
 }
 
-.profileLink:hover {
+.nav__signUp:hover,
+.profileLink:hover,
+.nav__logout:hover {
   color: rgb(58, 245, 188);
+}
+
+.profileLink {
+  text-decoration: none;
+  color: white;
+}
+
+.nav__logout {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.nav__searchContainer {
+  display: flex;
+  justify-content: center;
+  flex: 1;
 }
 
 .nav__search {
   display: flex;
-  width: 50%;
-  align-items: center;
+  justify-content: center;
+  padding-left: 230px;
+  min-width: 800px;
+  /* max-width: 1200px; */
+  /* max-width: 800px; */
 }
 
-.nav__searchInput {
-  height: 20px;
-  width: 100%;
+
+
+.nav__searchContainer .nav__search input[type="text"] {
+  height: 40px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  padding: 0 10px;
+  outline: none;
+  background-color: #212b3d;
+  color: white;
+  min-width: 600px;
+  max-width: 1200px;
+  ;
 }
 
 .nav__searchIcon {
-  border: 1px solid white;
-  margin-left: 5px;
-  width: 20px;
-  height: 20px;
+  background-color: #007bff;
+  border: none;
+  padding: 0 15px;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+}
+
+.nav__searchIcon:hover {
+  background-color: #0056b3;
+}
+
+.basketContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .basket {
   width: 35px;
-  height: 100%;
+  height: 35px;
   color: white;
 }
 
 .basket:hover {
   color: blue;
+}
+
+.itemCount {
+  color: white;
+  background-color: red;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
