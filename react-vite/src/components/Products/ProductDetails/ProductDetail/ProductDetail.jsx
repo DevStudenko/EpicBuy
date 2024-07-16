@@ -8,6 +8,8 @@ import LoginFormModal from '../../../Auth/LoginFormModal';
 import CreateReview from '../../../Reviews/CreateReview';
 import AverageStarRating from '../../../Reviews/StarRating/AverageStarRating';
 import styles from './ProductDetail.module.css';
+import { getPurchasesThunk } from '../../../../redux/purchases';
+import { useEffect } from 'react';
 
 const ProductDetail = ({ product }) => {
     const dispatch = useDispatch();
@@ -22,6 +24,10 @@ const ProductDetail = ({ product }) => {
     const hasPurchased = purchases?.some(purchase => purchase.product_id === id);
     const productReviews = reviews.filter(review => review.product_id === id);
     const userReview = productReviews.find(review => review.user_id === user?.id);
+
+    useEffect(() => {
+        dispatch(getPurchasesThunk())
+    }, [dispatch])
 
     const handleAddToCart = () => {
         const item = {

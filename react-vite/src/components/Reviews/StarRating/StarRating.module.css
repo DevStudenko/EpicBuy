@@ -2,7 +2,13 @@ input[type='radio'] {
     display: none;
 }
 
+
 .star:hover {
     cursor: pointer;
     transition: color 200ms;
+}
+
+.ratingContainer {
+    display: flex;
+    width: 20px;
 }
