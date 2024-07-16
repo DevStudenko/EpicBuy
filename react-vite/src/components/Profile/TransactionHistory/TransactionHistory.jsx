@@ -1,6 +1,11 @@
+import styles from './TransactionHistory.module.css'
+
+
 const TransactionHistory = () => {
   return (
-    <div>Feature coming soon!</div>
+    <div className={styles.feature}>
+      <p>Feature coming soon!</p>
+    </div>
   )
 }
 

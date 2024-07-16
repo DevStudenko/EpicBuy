@@ -27,6 +27,10 @@ function Navigation() {
     navigate('/');
   };
 
+  const handleSearchClick = () => {
+    alert("Feature coming soon...");
+  };
+
   return (
     <div className={styles.nav}>
       <div className={styles.nav__left}>
@@ -35,8 +39,8 @@ function Navigation() {
       </div>
       <div className={styles.nav__searchContainer}>
         <div className={styles.nav__search}>
-          <input className={styles.nav__searchInput} type="text" placeholder="Search products..." />
-          <button className={styles.nav__searchIcon}>
+          <input className={styles.nav__searchInput} type="text" placeholder="Feature coming soon..." />
+          <button className={styles.nav__searchIcon} onClick={handleSearchClick}>
             <FaSearch />
           </button>
         </div>
