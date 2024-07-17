@@ -49,6 +49,7 @@ const ProductDetail = ({ product }) => {
     };
 
     return (
+        
         <div className={styles.product}>
             <img src={preview_img_url} alt={`${name}`} className={styles.productImage} />
             <div className={styles.productInfo}>

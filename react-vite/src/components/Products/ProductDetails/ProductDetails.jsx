@@ -29,19 +29,22 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className={styles.productDetails}>
-            <ProductDetail product={product} />
-            <div className={styles.reviews}>
-                <h2>Reviews</h2>
-                {productReviews.length > 0 ? (
-                    productReviews.map(review => (
-                        <ReviewItem key={review.id} review={review} />
-                    ))
-                ) : (
-                    <p>No reviews yet.</p>
-                )}
+        <div className={styles.productDetailsContainer}>
+            <div className={styles.productDetails}>
+                <ProductDetail product={product} />
+                <div className={styles.reviews}>
+                    <h2>Reviews</h2>
+                    {productReviews.length > 0 ? (
+                        productReviews.map(review => (
+                            <ReviewItem key={review.id} review={review} />
+                        ))
+                    ) : (
+                        <p>No reviews yet.</p>
+                    )}
+                </div>
             </div>
         </div>
+
     );
 };
 

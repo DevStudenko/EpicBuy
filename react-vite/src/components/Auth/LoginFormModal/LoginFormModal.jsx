@@ -30,7 +30,9 @@ function LoginFormModal() {
     }
   };
 
-  const handleDemoUser = () => {
+  const handleDemoUser = (e) => {
+    e.preventDefault();
+
     const user = {
       email: "demo@aa.io",
       password: "password",
@@ -41,7 +43,9 @@ function LoginFormModal() {
     });
   };
 
-  const handleAdminUser = () => {
+  const handleAdminUser = (e) => {
+    e.preventDefault();
+
     const user = {
       email: "admin@aa.io",
       password: "admin",
