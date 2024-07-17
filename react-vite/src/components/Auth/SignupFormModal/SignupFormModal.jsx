@@ -50,7 +50,7 @@ function SignupFormModal() {
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           className={styles.email}
-          type="text"
+          type="email"
           placeholder="Enter your email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}

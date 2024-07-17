@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
-    profile_img_url = db.Column(db.String(255), nullable=False)
+    profile_img_url = db.Column(db.String(255), nullable=False, default="")
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
