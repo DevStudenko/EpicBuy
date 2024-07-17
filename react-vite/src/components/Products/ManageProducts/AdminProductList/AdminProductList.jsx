@@ -5,11 +5,10 @@ import styles from './AdminProductList.module.css';
 
 const AdminProductList = () => {
     const products = useSelector(getProductsArray);
-    const availableProducts = products.filter(product => product.quantity > 0);
 
     return (
         <div className={styles.adminProductsList}>
-            {availableProducts.map((product) => (
+            {products.map((product) => (
                 <AdminProductItem
                     key={product.id}
                     product={product}

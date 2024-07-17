@@ -1,3 +1,5 @@
+/* AdminProductItem.module.css */
+
 .adminProductItem {
     display: flex;
     justify-content: space-between;
@@ -9,6 +11,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.soldOut {
+    opacity: 0.5;
+}
+
 .productDetails {
     display: flex;
     align-items: center;
@@ -18,7 +24,6 @@
     width: 214px;
     height: 225px;
     object-fit: cover;
-    /* border-radius: 10px; */
     margin-right: 20px;
 }
 
@@ -47,6 +52,13 @@
     padding: 5px;
 }
 
+.soldOutNotice {
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    padding: 5px;
+}
+
 .adminButtons {
     display: flex;
     flex-direction: column;
@@ -54,7 +66,8 @@
 }
 
 .updateButton,
-.deleteButton {
+.deleteButton,
+.restockButton {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -79,4 +92,22 @@
 
 .deleteButton:hover {
     background-color: #c82333;
+}
+
+.restockButton {
+    background-color: #28a745;
+    color: white;
+}
+
+.restockButton:hover {
+    background-color: #218838;
+}
+
+.adminProductsList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
 }
