@@ -129,3 +129,9 @@
 .signInButton:hover {
     color: #0056b3;
 }
+
+.lowStockNotice {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}

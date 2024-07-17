@@ -19,7 +19,7 @@ def purchase_items():
             return jsonify({"message": f"Not enough stock for {product.name}"}), 400
 
         product.quantity -= cart_item.quantity
-        total_cost += product.price * cart_item.quantity
+        # total_cost += product.price * cart_item.quantity
 
         purchase = Purchase(
             user_id=current_user.id,
@@ -30,10 +30,9 @@ def purchase_items():
         db.session.add(purchase)
         db.session.delete(cart_item)
 
-    current_user.balance -= total_cost
     db.session.commit()
 
-    return jsonify({"message": "Purchase successful", "balance": current_user.balance}), 200
+    return jsonify({"message": "Purchase successful"}), 200
 
 @purchase_routes.route('', methods=['GET'])
 @login_required

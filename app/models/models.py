@@ -12,7 +12,6 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    balance = db.Column(db.Float, nullable=False, default=9999.99)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
     profile_img_url = db.Column(db.String(255), nullable=False)
     hashed_password = db.Column(db.String(255), nullable=False)
@@ -42,7 +41,6 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'balance': self.balance,
             'isAdmin': self.is_admin,
             'profile_img_url': self.profile_img_url
         }

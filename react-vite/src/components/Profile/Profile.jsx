@@ -5,7 +5,7 @@ import PurchaseHistory from './PurchaseHistory';
 import ManageProducts from '../Products/ManageProducts';
 import TransactionHistory from './TransactionHistory';
 import default_user from '../../../../assets/images/default_user.jpg';
-import { thunkAuthenticate } from '../../redux/session';
+// import { thunkAuthenticate } from '../../redux/session';
 import { getAllFavoritesThunk } from '../../redux/favorites';
 import styles from './Profile.module.css';
 import { getAllProductsThunk } from '../../redux/products';
@@ -18,7 +18,7 @@ const Profile = () => {
 
   // Re-fetch the user data when the component mounts to ensure it's up-to-date
   useEffect(() => {
-    dispatch(thunkAuthenticate());
+    // dispatch(thunkAuthenticate());
     dispatch(getAllFavoritesThunk());
     dispatch(getAllProductsThunk());
   }, [dispatch]);
@@ -46,7 +46,6 @@ const Profile = () => {
         <img className={styles.profile__img} src={user?.profile_image_url || default_user} alt={`${user?.username}'s profile`} />
         <h2>{user?.username}</h2>
         <p>Email: {user?.email}</p>
-        <p>Balance: ${user?.balance.toFixed(2)}</p>
         {!isAdmin && (
           <>
             <button

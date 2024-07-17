@@ -18,7 +18,7 @@ const ProductDetail = ({ product }) => {
     const reviews = useSelector(getReviewsArray);
     const purchases = useSelector(getPurchasesArray);
 
-    const { id, name, description, price, preview_img_url, avgRating } = product;
+    const { id, name, description, price, preview_img_url, avgRating, quantity } = product;
 
     const isFavorite = userFavorites.some(favorite => favorite.product_id === id);
     const hasPurchased = purchases?.some(purchase => purchase.product_id === id);
@@ -49,7 +49,6 @@ const ProductDetail = ({ product }) => {
     };
 
     return (
-        
         <div className={styles.product}>
             <img src={preview_img_url} alt={`${name}`} className={styles.productImage} />
             <div className={styles.productInfo}>
@@ -59,6 +58,11 @@ const ProductDetail = ({ product }) => {
                     <AverageStarRating rating={avgRating} />
                 </div>
                 <div className={styles.productPrice}>${price}</div>
+                {quantity <= 10 && (
+                    <div className={styles.lowStockNotice}>
+                        Only {quantity} left in stock!
+                    </div>
+                )}
                 {user ? (
                     <button onClick={handleAddToCart} className={styles.addToCartButton}>Add to Basket</button>
                 ) : (
