@@ -17,8 +17,6 @@ const ProductsList = () => {
           preview_img_url={product.preview_img_url}
           price={product.price}
           avgRating={product.avgRating}
-        // onEdit={onEdit}
-        // onDelete={onDelete}
         />
       ))}
     </div>

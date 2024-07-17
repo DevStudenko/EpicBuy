@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCartThunk } from "../../redux/cart";
+import { addItemToCartThunk, getCartItemsArray } from "../../redux/cart";
 import { Link } from "react-router-dom";
 import AverageStarRating from "../Reviews/StarRating/AverageStarRating";
 import styles from './Product.module.css';
@@ -7,10 +7,17 @@ import styles from './Product.module.css';
 const Product = ({ id, name, price, avgRating, preview_img_url }) => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.session.user);
-
+    const cartItems = useSelector(getCartItemsArray);
+    const cartItem = cartItems.find(item => item.product_id === id);
 
     const addToCart = (event) => {
         event.preventDefault();
+
+        if (cartItem && cartItem.quantity >= 10) {
+            alert('You cannot add more than 10 items of the same product to the cart.');
+            return;
+        }
+
         const item = {
             product_id: id,
             avg_rating: avgRating
