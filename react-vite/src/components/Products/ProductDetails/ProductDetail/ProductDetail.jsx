@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCartThunk } from '../../../../redux/cart';
+import { addItemToCartThunk, getCartItemsArray } from '../../../../redux/cart';
 import { addFavoriteThunk, removeFavoriteThunk, getFavoritesArray } from '../../../../redux/favorites';
 import { getPurchasesArray } from '../../../../redux/purchases';
 import { getReviewsArray } from '../../../../redux/reviews';
@@ -9,7 +9,7 @@ import CreateReview from '../../../Reviews/CreateReview';
 import AverageStarRating from '../../../Reviews/StarRating/AverageStarRating';
 import styles from './ProductDetail.module.css';
 import { getPurchasesThunk } from '../../../../redux/purchases';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const ProductDetail = ({ product }) => {
     const dispatch = useDispatch();
@@ -17,24 +17,36 @@ const ProductDetail = ({ product }) => {
     const userFavorites = useSelector(getFavoritesArray);
     const reviews = useSelector(getReviewsArray);
     const purchases = useSelector(getPurchasesArray);
+    const cartItems = useSelector(getCartItemsArray);
 
     const { id, name, description, price, preview_img_url, avgRating, quantity } = product;
+
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     const isFavorite = userFavorites.some(favorite => favorite.product_id === id);
     const hasPurchased = purchases?.some(purchase => purchase.product_id === id);
     const productReviews = reviews.filter(review => review.product_id === id);
     const userReview = productReviews.find(review => review.user_id === user?.id);
+    const cartItem = cartItems.find(item => item.product_id === id);
 
     useEffect(() => {
-        dispatch(getPurchasesThunk())
-    }, [dispatch])
+        dispatch(getPurchasesThunk());
+    }, [dispatch]);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
+        if (isAddingToCart) return; // Prevent multiple clicks
+        if (cartItem && cartItem.quantity >= 10) {
+            alert('You cannot add more than 10 items of the same product to the cart.');
+            return;
+        }
+
+        setIsAddingToCart(true);
         const item = {
             product_id: id,
             avg_rating: avgRating,
         };
-        dispatch(addItemToCartThunk(item));
+        await dispatch(addItemToCartThunk(item));
+        setIsAddingToCart(false);
     };
 
     const handleAddToWishlist = () => {
@@ -64,7 +76,13 @@ const ProductDetail = ({ product }) => {
                     </div>
                 )}
                 {user ? (
-                    <button onClick={handleAddToCart} className={styles.addToCartButton}>Add to Basket</button>
+                    <button
+                        onClick={handleAddToCart}
+                        className={styles.addToCartButton}
+                        disabled={isAddingToCart}
+                    >
+                        Add to Basket
+                    </button>
                 ) : (
                     <div className={styles.signInPrompt}>
                         Please sign in to purchase this product.{' '}
