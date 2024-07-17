@@ -15,7 +15,18 @@ const CreateReview = ({ productId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newReview = { product_id: productId, rating, review };
+
+        if (!review.trim()) {
+            setErrors({ review: 'Review cannot be empty or whitespace.' });
+            return;
+        }
+
+        if (rating <= 0) {
+            setErrors({ rating: 'Rating must be provided.' });
+            return;
+        }
+
+        const newReview = { product_id: productId, rating, review: review.trim() };
 
         const response = await dispatch(addReviewThunk(newReview));
         if (response.errors) {
@@ -32,15 +43,6 @@ const CreateReview = ({ productId }) => {
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>
                     Rating
-                    {/* <input
-                        type="number"
-                        min="1"
-                        max="5"
-                        value={rating}
-                        onChange={(e) => setRating(Number(e.target.value))}
-                        required
-                        className={styles.input}
-                    /> */}
                     <StarRating setRating={setRating} />
                 </label>
                 <label>
@@ -53,6 +55,7 @@ const CreateReview = ({ productId }) => {
                     />
                 </label>
                 {errors.review && <p className={styles.error}>{errors.review}</p>}
+                {errors.rating && <p className={styles.error}>{errors.rating}</p>}
                 <button type="submit" className={styles.submit}>Submit</button>
             </form>
         </div>

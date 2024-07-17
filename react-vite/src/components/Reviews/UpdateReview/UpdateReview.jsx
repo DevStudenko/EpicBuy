@@ -16,7 +16,14 @@ const UpdateReview = ({ reviewId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const updatedReview = { id: reviewId, rating, review: reviewText };
+
+        if (!reviewText.trim()) {
+            setErrors({ review: 'Review cannot be empty or whitespace.' });
+            return;
+        }
+
+
+        const updatedReview = { id: reviewId, rating, review: reviewText.trim() };
 
         const response = await dispatch(updateReviewThunk(reviewId, updatedReview));
         if (response.errors) {
@@ -31,11 +38,11 @@ const UpdateReview = ({ reviewId }) => {
         <div className={styles.container}>
             <h1 className={styles.title}>Update Review</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
-                <label>
+                <label className={styles.label}>
                     Rating
                     <StarRating setRating={setRating} />
                 </label>
-                <label>
+                <label className={styles.label}>
                     Review
                     <textarea
                         value={reviewText}
@@ -45,6 +52,7 @@ const UpdateReview = ({ reviewId }) => {
                     />
                 </label>
                 {errors.review && <p className={styles.error}>{errors.review}</p>}
+                {errors.rating && <p className={styles.error}>{errors.rating}</p>}
                 <button type="submit" className={styles.submit}>Update</button>
             </form>
         </div>
