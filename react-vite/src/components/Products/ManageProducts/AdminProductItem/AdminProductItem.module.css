@@ -23,7 +23,7 @@
 .adminProduct__img {
     width: 214px;
     height: 225px;
-    object-fit: cover;
+    object-fit: fill;
     margin-right: 20px;
 }
 
