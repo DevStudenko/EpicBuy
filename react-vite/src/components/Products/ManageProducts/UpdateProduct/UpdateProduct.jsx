@@ -17,13 +17,25 @@ const UpdateProduct = ({ product }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const errors = {};
+    if (!name.trim()) errors.name = 'Name cannot be empty or whitespace.';
+    if (!description.trim()) errors.description = 'Description cannot be empty or whitespace.';
+    if (!previewImgUrl.trim()) errors.previewImgUrl = 'Preview Image URL cannot be empty or whitespace.';
+    if (price <= 0) errors.price = 'Price must be greater than 0.';
+    if (quantity <= 0) errors.quantity = 'Quantity must be greater than 0.';
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     const updatedProduct = {
       id: product.id,
-      name,
-      description,
+      name: name.trim(),
+      description: description.trim(),
       price: parseFloat(price),
       quantity: parseInt(quantity),
-      preview_img_url: previewImgUrl,
+      preview_img_url: previewImgUrl.trim(),
     };
 
     const serverResponse = await dispatch(updateProductThunk(updatedProduct));
