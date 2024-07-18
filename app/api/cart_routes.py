@@ -9,7 +9,6 @@ cart_routes = Blueprint('cart', __name__)
 @login_required
 def get_all_cart_items():
     cart_items = CartItem.query.join(CartItem.cart).filter(Cart.user_id == current_user.id).all()
-    print([cart_item.to_dict() for cart_item in cart_items])
     return jsonify([cart_item.to_dict() for cart_item in cart_items]), 200
 
 @cart_routes.route('', methods=['POST'])

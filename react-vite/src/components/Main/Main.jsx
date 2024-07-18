@@ -14,13 +14,13 @@ function MainComponent() {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(initialLoadThunk());
-        if (user) {
-            dispatch(getAllCartItemsThunk());
-            dispatch(getPurchasesThunk());
-            dispatch(getAllFavoritesThunk());
-        }
-    }, [user, dispatch])
+    }, [dispatch])
 
+    if (user) {
+        dispatch(getAllCartItemsThunk());
+        dispatch(getPurchasesThunk());
+        dispatch(getAllFavoritesThunk());
+    }
     return (
         <>
             <Header />
