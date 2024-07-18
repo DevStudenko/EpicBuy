@@ -36,7 +36,10 @@ const Profile = () => {
       case 'transactionHistory':
         return <TransactionHistory />;
       default:
-        return <p className={styles.profileNotice}>Select an option to view</p>;
+        return <div className={styles.profileHome}>
+          <p className={styles.profileNotice}>Select an option to view</p>;
+        </div>
+
     }
   };
 

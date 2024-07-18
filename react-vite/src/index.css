@@ -5,21 +5,16 @@
     padding: 0;
 }
 
-#root {
-    color: #fff;
+html, body, #root {
     height: 100%;
-}
-
-html {
-    height: 100%;
+    overflow-x: hidden; /* Ensure no horizontal overflow */
 }
 
 body {
     font-family: "Montserrat", Inter, Arial, Helvetica, sans-serif;
     background-color: #0a0e15;
-    height: 100%;
+    color: #fff;
 }
-
 
 a {
     text-decoration: none;
