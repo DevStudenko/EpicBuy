@@ -2,14 +2,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCartItemsArray } from '../../../redux/cart';
 import CartItem from "./CartItem";
 import { purchaseItemsThunk } from '../../../redux/purchases';
-import { deleteAllCartItemsThunk } from '../../../redux/cart';
-import { useNavigate } from 'react-router-dom';
 import styles from "./Cart.module.css";
 import { useState, useEffect } from 'react';
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const items = useSelector(getCartItemsArray);
   const [subtotal, setSubtotal] = useState(0);
   const taxRate = 0.1;
@@ -26,9 +23,7 @@ const Cart = () => {
     if (response.errors) {
       alert(response.errors);
     } else {
-      dispatch(deleteAllCartItemsThunk());
-      alert('Thank you for your purchase!');
-      navigate('/');
+      window.location.href = response.url;  // Redirect to Stripe Checkout
     }
   };
 
@@ -82,7 +77,6 @@ const Cart = () => {
             Purchase
           </button>
         </div>
-
       </div>
     </div>
   );
