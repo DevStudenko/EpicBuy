@@ -1,6 +1,6 @@
 from flask import Flask, Blueprint, request, jsonify
 from flask_cors import CORS
-from app.models import db, Purchase, Product, CartItem, Cart, User
+from app.models import db, Purchase, Product, CartItem, User
 from flask_login import login_required, current_user
 import os
 import stripe
@@ -53,17 +53,34 @@ def purchase_items():
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=lineItems,
+            automatic_tax={"enabled": True},
             mode='payment',
-            success_url='http://localhost:5173/success',
+            success_url=f'http://localhost:5173/success?session_id={{CHECKOUT_SESSION_ID}}',
             cancel_url='http://localhost:5173/cancel',
         )
     except Exception as e:
         return jsonify({'message': str(e)}), 500
 
-    CartItem.query.filter_by(cart_id=current_user.cart.id).delete()
     db.session.commit()
 
     return jsonify({'url': checkout_session.url}), 200
+
+@purchase_routes.route('/success', methods=['POST'])
+@login_required
+def purchase_success():
+    data = request.json
+    session_id = data.get('session_id')
+
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+        if session.payment_status == 'paid':
+            CartItem.query.filter_by(cart_id=current_user.cart.id).delete()
+            db.session.commit()
+            return jsonify({"message": "Purchase successful"}), 200
+        else:
+            return jsonify({"message": "Payment not completed"}), 400
+    except Exception as e:
+        return jsonify({'message': str(e)}), 500
 
 @purchase_routes.route('', methods=['GET'])
 @login_required

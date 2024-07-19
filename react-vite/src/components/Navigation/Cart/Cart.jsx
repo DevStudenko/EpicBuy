@@ -4,19 +4,23 @@ import CartItem from "./CartItem";
 import { purchaseItemsThunk } from '../../../redux/purchases';
 import styles from "./Cart.module.css";
 import { useState, useEffect } from 'react';
+import { getAllCartItemsThunk } from '../../../redux/cart';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const items = useSelector(getCartItemsArray);
   const [subtotal, setSubtotal] = useState(0);
-  const taxRate = 0.1;
+  const taxRate = 0.06625;
   const tax = subtotal * taxRate;
   const total = subtotal + tax;
 
   useEffect(() => {
+    if (!items || !items.length) {
+      dispatch(getAllCartItemsThunk())
+    }
     const newSubtotal = items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     setSubtotal(newSubtotal);
-  }, [items]);
+  }, [items, dispatch]);
 
   const handlePurchase = async () => {
     const response = await dispatch(purchaseItemsThunk(items));
