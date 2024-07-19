@@ -54,8 +54,8 @@ def purchase_items():
             payment_method_types=['card'],
             line_items=lineItems,
             mode='payment',
-            success_url='http://localhost:3000/success',  # Update this URL
-            cancel_url='http://localhost:3000/cancel',    # Update this URL
+            success_url='http://localhost:5173/success',
+            cancel_url='http://localhost:5173/cancel',
         )
     except Exception as e:
         return jsonify({'message': str(e)}), 500

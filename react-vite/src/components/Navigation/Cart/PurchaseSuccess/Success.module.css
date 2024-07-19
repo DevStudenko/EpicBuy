@@ -1,0 +1,33 @@
+.successContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f8f8f8;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.successContainer h1 {
+    color: #28a745;
+}
+
+.successContainer p {
+    color: #333;
+    margin: 20px 0;
+}
+
+.homeButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.homeButton:hover {
+    background-color: #0056b3;
+}

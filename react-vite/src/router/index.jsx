@@ -6,7 +6,9 @@ import Cart from '../components/Navigation/Cart';
 import MainComponent from '../components/Main';
 import ProductDetails from '../components/Products/ProductDetails';
 import CreateProduct from '../components/Products/ManageProducts/CreateProduct';
-import Profile from '../components/Profile/Profile';
+import Profile from '../components/Profile';
+import Success from '../components/Navigation/Cart/PurchaseSuccess/Success';
+import Cancel from '../components/Navigation/Cart/PurchaseCancel/Cancel';
 
 export const router = createBrowserRouter([
   {
@@ -39,8 +41,15 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />
+      },
+      {
+        path: "success",
+        element: <Success />
+      },
+      {
+        path: "cancel",
+        element: <Cancel />
       }
-
     ],
   },
 ]);
