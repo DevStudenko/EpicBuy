@@ -57,17 +57,21 @@ const Cart = () => {
         </div>
         <div className={styles.checkout__summary}>
           <div className={styles.checkoutDetails}>
-            <div className={styles.summaryItem}>
-              <span>Subtotal:</span>
-              <span>${subtotal.toFixed(2)}</span>
+            <div className={styles.summarySubtotal}>
+              <div className={styles.summaryItem}>
+                <span>Subtotal:</span>
+                <span>${subtotal.toFixed(2)}</span>
+              </div>
+              <div className={styles.summaryItem}>
+                <span>Tax:</span>
+                <span>${tax.toFixed(2)}</span>
+              </div>
             </div>
             <div className={styles.summaryItem}>
-              <span>Tax:</span>
-              <span>${tax.toFixed(2)}</span>
-            </div>
-            <div className={styles.summaryItem}>
-              <span>Total:</span>
-              <span>${total.toFixed(2)}</span>
+              <div className={styles.total}>
+                <span>Total:</span>
+                <span>${total.toFixed(2)}</span>
+              </div>
             </div>
           </div>
           <button
