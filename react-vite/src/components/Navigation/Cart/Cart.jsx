@@ -5,11 +5,21 @@ import { purchaseItemsThunk } from '../../../redux/purchases';
 import { deleteAllCartItemsThunk } from '../../../redux/cart';
 import { useNavigate } from 'react-router-dom';
 import styles from "./Cart.module.css";
+import { useState, useEffect } from 'react';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const items = useSelector(getCartItemsArray);
+  const [subtotal, setSubtotal] = useState(0);
+  const taxRate = 0.1;
+  const tax = subtotal * taxRate;
+  const total = subtotal + tax;
+
+  useEffect(() => {
+    const newSubtotal = items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+    setSubtotal(newSubtotal);
+  }, [items]);
 
   const handlePurchase = async () => {
     const response = await dispatch(purchaseItemsThunk(items));
@@ -45,7 +55,21 @@ const Cart = () => {
             <p className={styles.emptyCartMessage}>Your cart is empty.</p>
           )}
         </div>
-        <div className={styles.checkout__button}>
+        <div className={styles.checkout__summary}>
+          <div className={styles.checkoutDetails}>
+            <div className={styles.summaryItem}>
+              <span>Subtotal:</span>
+              <span>${subtotal.toFixed(2)}</span>
+            </div>
+            <div className={styles.summaryItem}>
+              <span>Tax:</span>
+              <span>${tax.toFixed(2)}</span>
+            </div>
+            <div className={styles.summaryItem}>
+              <span>Total:</span>
+              <span>${total.toFixed(2)}</span>
+            </div>
+          </div>
           <button
             onClick={handlePurchase}
             className={styles.purchaseButton}
@@ -54,9 +78,9 @@ const Cart = () => {
             Purchase
           </button>
         </div>
+
       </div>
     </div>
-
   );
 };
 

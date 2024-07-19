@@ -15,14 +15,12 @@
 .item {
     display: flex;
     flex-direction: row;
-    /* Change to row for horizontal layout */
     align-items: center;
     justify-content: space-between;
     margin: 10px;
     padding: 20px;
     width: 100%;
     max-width: none;
-    /* Remove max-width to allow full width */
     background-color: white;
     border-radius: 10px;
     color: black;
@@ -37,19 +35,15 @@
 .item>img {
     height: 200px;
     width: 200px;
-    /* Set a fixed width for the image */
     object-fit: cover;
     border-radius: 10px;
     margin-right: 20px;
-    /* Add some space between the image and info */
 }
 
 .item__info {
     flex-grow: 1;
-    /* Allow the info section to grow */
     padding: 10px;
     text-align: left;
-    /* Align text to the left */
 }
 
 .item__name {
@@ -64,6 +58,11 @@
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.item__price {
+    margin-left: auto;
+    padding-left: 20px;
 }
 
 .item__starIcon {
@@ -88,7 +87,6 @@
     transition: background-color 0.3s ease;
     text-align: center;
     margin-left: 20px;
-    /* Add some space between the info and button */
 }
 
 .item>button:hover {

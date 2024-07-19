@@ -34,7 +34,6 @@ const CartItem = ({ id, name, preview_img_url, price, quantity, avgRating }) => 
                     <img src={preview_img_url} alt={name} />
                     <div className={styles.item__info}>
                         <div className={styles.item__name}>{name}</div>
-                        <div className={styles.item__price}>${price}</div>
                         <div className={styles.item__rating}>
                             {avgRating > 0 ? <AverageStarRating rating={avgRating} /> : "New"}
                         </div>
@@ -47,6 +46,7 @@ const CartItem = ({ id, name, preview_img_url, price, quantity, avgRating }) => 
                             </select>
                         </div>
                     </div>
+                    <div className={styles.item__price}>${price}</div>
                     <button onClick={removeFromCart} className={styles.item__remove}>Delete</button>
                 </div>
             </div>
