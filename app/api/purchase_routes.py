@@ -12,7 +12,7 @@ def purchase_items():
     if not cart_items:
         return jsonify({"message": "No items in cart"}), 400
 
-    total_cost = 0
+    # total_cost = 0
     for cart_item in cart_items:
         product = Product.query.get(cart_item.product_id)
         if product.quantity < cart_item.quantity:
