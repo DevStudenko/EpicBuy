@@ -10,9 +10,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const items = useSelector(getCartItemsArray);
   const [subtotal, setSubtotal] = useState(0);
-  const taxRate = 0.06625;
-  const tax = subtotal * taxRate;
-  const total = subtotal + tax;
+  const tax = "calculated at checkout"
+  const total = subtotal;
 
   useEffect(() => {
     if (!items || !items.length) {
@@ -63,7 +62,7 @@ const Cart = () => {
               </div>
               <div className={styles.summaryItem}>
                 <span>Tax:</span>
-                <span>${tax.toFixed(2)}</span>
+                <span>({tax})</span>
               </div>
             </div>
             <div className={styles.summaryItem}>
