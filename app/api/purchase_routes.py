@@ -6,7 +6,7 @@ import os
 import stripe
 
 stripe.api_key = os.environ.get("STRIPE_SECRET")
-
+BASE_URL = os.environ.get('FLASK_ENV') or "http://localhost:5173"
 app = Flask(__name__)
 CORS(app)
 
@@ -55,8 +55,8 @@ def purchase_items():
             line_items=lineItems,
             automatic_tax={"enabled": True},
             mode='payment',
-            success_url=f'http://localhost:5173/success?session_id={{CHECKOUT_SESSION_ID}}',
-            cancel_url='http://localhost:5173/cancel',
+            success_url=f'{BASE_URL}/success?session_id={{CHECKOUT_SESSION_ID}}',
+            cancel_url=f'{BASE_URL}/cancel'
         )
     except Exception as e:
         return jsonify({'message': str(e)}), 500
