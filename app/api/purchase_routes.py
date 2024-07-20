@@ -8,7 +8,7 @@ stripe.api_key = os.environ.get("STRIPE_SECRET")
 
 BASE_URL = "http://localhost:5173"
 if (os.environ.get("FLASK_ENV") == 'production'):
-    BASE_URL = os.environ.get("BASE_URL")
+    BASE_URL = os.environ.get("REACT_APP_BASE_URL")
 
 
 app = Flask(__name__)
