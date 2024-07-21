@@ -30,7 +30,7 @@ EpicBuy is an ideal solution for businesses selling gaming PCs because it provid
   <img src=https://user-images.githubusercontent.com/25181517/117207330-263ba280-adf4-11eb-9b97-0ac5b40bc3be.png alt="GIT" width="40">
 </p>
 
-##Getting Started
+## Getting Started
 
 To see EpicBuy live, click the link above. To run EpicBuy locally on your machine, follow these steps:
 
