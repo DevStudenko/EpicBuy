@@ -50,14 +50,14 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
 
 - Still in the root directory, enter the following commands:
 
-  - `pipenv install`
-  - `pipenv shell`
-  - `flask db migrate`
-  - `flask db upgrade`
-  - `flask seed all`
-  - `pipenv run flask run`
-    - (The backend server should now be running on port 5000)
-    - 
+    - `pipenv install`
+    - `pipenv shell`
+    - `flask db migrate`
+    - `flask db upgrade`
+    - `flask seed all`
+    - `pipenv run flask run`
+      - (The backend server should now be running on port 5000)
+      
 ## Frontend Setup
 
 - In a separate terminal, CD into the react-app folder and run:
