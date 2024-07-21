@@ -34,9 +34,9 @@ EpicBuy is an ideal solution for businesses selling gaming PCs because it provid
 
 To see EpicBuy live, click the link above. To run EpicBuy locally on your machine, follow these steps:
 
--Clone the repository:
+- Clone the repository:
 
-  -`git clone https://github.com/DevStudenko/EpicBuy.git`
+  - `git clone https://github.com/DevStudenko/EpicBuy.git`
 
 ## Backend setup
 
