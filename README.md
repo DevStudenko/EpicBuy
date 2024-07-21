@@ -61,15 +61,14 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
 ## Frontend Setup
 
   - In a separate terminal, CD into the react-app folder and run:
-
     - `npm install`
     - `npm run dev`
       - (The frontend should now be running on port 5173)
    
       
 ## Accessing the Application
-- In your favorite browser, navigate to http://localhost:5173
-  - (You can confirm the correct port number in the frontend terminal)
+  - In your favorite browser, navigate to http://localhost:5173
+    - (You can confirm the correct port number in the frontend terminal)
 
 ## Contribution
 I welcome contributions to improve EpicBuy. Feel free to fork the repository and submit pull requests.
