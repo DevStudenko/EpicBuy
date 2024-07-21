@@ -48,7 +48,7 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
     - `DATABASE_URL=sqlite:///dev.db`
     - `SCHEMA=epic_buy`
 
-- Still in the root directory, enter the following commands:
+  - Still in the root directory, enter the following commands:
 
     - `pipenv install`
     - `pipenv shell`
