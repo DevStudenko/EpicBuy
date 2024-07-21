@@ -1,4 +1,3 @@
-
 # EpicBuy
 
 Welcome to EpicBuy, your ultimate destination for gaming PCs. Designed for gamers by gamers, EpicBuy provides a seamless and engaging platform to buy, sell, and review gaming PCs. Enjoy features like:
@@ -14,7 +13,7 @@ EpicBuy is an ideal solution for businesses selling gaming PCs because it provid
 
 (https://epicbuy.onrender.com)
 
-## [Wiki][(https://github.com/DevStudenko/EpicBuy/wiki)
+## [Wiki](https://github.com/DevStudenko/EpicBuy/wiki)
 
 ## Technologies Used
 
@@ -73,10 +72,10 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
   - (You can confirm the correct port number in the frontend terminal)
 
 ## Contribution
-- We welcome contributions to improve EpicBuy. Feel free to fork the repository and submit pull requests.
+We welcome contributions to improve EpicBuy. Feel free to fork the repository and submit pull requests.
 
 ## License
-- This project is licensed under the MIT License. See the LICENSE file for more information.
+This project is licensed under the MIT License. See the LICENSE file for more information.
 
 ## Contact
 For any inquiries, please contact me at dstudenko@gmail.com
