@@ -59,7 +59,6 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
       - (The backend server should now be running on port 5000)
       
 ## Frontend Setup
-
   - In a separate terminal, CD into the react-app folder and run:
     - `npm install`
     - `npm run dev`
