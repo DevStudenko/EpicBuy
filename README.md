@@ -72,7 +72,7 @@ To see EpicBuy live, click the link above. To run EpicBuy locally on your machin
   - (You can confirm the correct port number in the frontend terminal)
 
 ## Contribution
-We welcome contributions to improve EpicBuy. Feel free to fork the repository and submit pull requests.
+I welcome contributions to improve EpicBuy. Feel free to fork the repository and submit pull requests.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more information.
