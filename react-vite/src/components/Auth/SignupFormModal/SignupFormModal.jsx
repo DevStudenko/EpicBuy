@@ -19,6 +19,7 @@ function SignupFormModal() {
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailPattern.test(email)) {
+      console.log("Invalid email format");
       return setErrors({ email: "Please enter a valid email address" });
     }
 
