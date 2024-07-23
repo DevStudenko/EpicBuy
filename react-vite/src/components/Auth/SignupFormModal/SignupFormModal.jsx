@@ -17,6 +17,11 @@ function SignupFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(email)) {
+      return setErrors({ email: "Please enter a valid email address" });
+    }
+    
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
