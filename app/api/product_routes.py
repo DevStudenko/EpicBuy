@@ -1,8 +1,15 @@
 from flask import Blueprint, request, jsonify
 from app.models import db, Product, Image
+from app.aws_helper import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 from flask_login import login_required, current_user
 
 product_routes = Blueprint('products', __name__)
+
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @product_routes.route('', methods=['GET'])
 def get_all_products():
@@ -46,7 +53,8 @@ def update_product(id):
     product.name = data.get('name', product.name)
     product.description = data.get('description', product.description)
     product.price = data.get('price', product.price)
-    product.preview_img_url = data.get('preview_img_url', product.preview_img_url)
+    # product.preview_img_url = data.get('preview_img_url', product.preview_img_url)
+    product.preview_img_url = upload_response["url"]
     product.quantity = data.get('quantity', product.quantity)
 
     db.session.commit()
