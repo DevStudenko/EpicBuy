@@ -1,9 +1,8 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify  # Add jsonify here
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 from app.aws_helper import get_unique_filename, upload_file_to_s3, remove_file_from_s3
 from app.models import db, Image
-
 
 image_routes = Blueprint('images', __name__)
 
@@ -15,52 +14,31 @@ def allowed_file(filename):
 @image_routes.route('/new', methods=['POST'])
 @login_required
 def upload_image():
-    ## Instead of a separate route for images and uploading/deleting them
-    ## in the users, servers, and messages upload/delete routes, add logic to
-    ## check if an image_url is sent in the body, update the image
-    
     try:
         if 'file' not in request.files:
-            return {"error": "No file part"}, 400
+            return jsonify({"error": "No file part"}), 400
 
         file = request.files['file']
 
         if file.filename == '':
-            return {"error": "No selected file"}, 400
+            return jsonify({"error": "No selected file"}), 400
 
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             unique_filename = get_unique_filename(filename)
             file.filename = unique_filename
             upload_response = upload_file_to_s3(file)
-
+            print('Upload response:', upload_response)
             if "errors" in upload_response:
-                return upload_response, 400
+                return jsonify(upload_response), 400
 
-            form_data = {key.strip(): value.strip() for key, value in request.form.items()}
-            image_type = form_data.get('type')
-            type_id = form_data.get('type_id')
+            # Return the URL wrapped in a JSON object
+            return jsonify({"url": upload_response["url"]}), 200
 
-            if not image_type or not type_id:
-                return {"error": "type and type_id are required"}, 400
-
-            # Add the image to the database
-            image = Image(
-                type=image_type,  # Based on the type (user, server, message)
-                type_id=int(type_id),  # Based on the entity ID (user_id, server_id, message_id)
-                img_url=upload_response["url"]
-            )
-            db.session.add(image)
-            db.session.commit()
-
-            return image.to_dict(), 201
-
-        return {"error": "File type not allowed"}, 400
+        return jsonify({"error": "File type not allowed"}), 400
 
     except Exception as e:
-        db.session.rollback()
-        return {"error": str(e)}, 500
-
+        return jsonify({"error": str(e)}), 500
 
 
 @image_routes.route('/<int:image_id>', methods=['DELETE'])
@@ -69,21 +47,21 @@ def delete_image(image_id):
     try:
         image = Image.query.get(image_id)
         if not image:
-            return {"error": "Image not found"}, 404
+            return jsonify({"error": "Image not found"}), 404  # Updated jsonify
 
         delete_response = remove_file_from_s3(image.img_url)
 
         if isinstance(delete_response, dict) and "errors" in delete_response:
-            return delete_response, 400
+            return jsonify(delete_response), 400  # Updated jsonify
 
         db.session.delete(image)
         db.session.commit()
 
-        return {"message": "Image deleted successfully"}, 200
+        return jsonify({"message": "Image deleted successfully"}), 200  # Updated jsonify
 
     except Exception as e:
         db.session.rollback()
-        return {"error": str(e)}, 500
+        return jsonify({"error": str(e)}), 500  # Updated jsonify
 
 
 @image_routes.route('/', methods=['GET'])
@@ -92,6 +70,6 @@ def get_all_images():
     try:
         images = Image.query.all()
         print(images)
-        return [image.to_dict() for image in images], 200
+        return jsonify([image.to_dict() for image in images]), 200  # Updated jsonify
     except Exception as e:
-        return {"error": str(e)}, 500
+        return jsonify({"error": str(e)}), 500  # Updated jsonify

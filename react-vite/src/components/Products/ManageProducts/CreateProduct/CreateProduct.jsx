@@ -30,9 +30,10 @@ const CreateProduct = () => {
         });
 
         const data = await response.json();
+        console.log('Upload response:', data);
 
         if (response.ok) {
-            setPreviewImgUrl(data.img_url);
+            setPreviewImgUrl(data.url); // Use the URL returned by the server
             setErrors({});
         } else {
             setErrors({ previewImgUrl: 'Failed to upload image. Please try again.' });

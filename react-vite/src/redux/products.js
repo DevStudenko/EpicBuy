@@ -37,11 +37,12 @@ export const getAllProductsThunk = () => async (dispatch) => {
 };
 
 //! --------------------------------------------------------------------
-export const createProductThunk = (formData) => async (dispatch) => {
+export const createProductThunk = (productData) => async (dispatch) => {
     try {
+        console.log(productData);
         const response = await fetch("/api/products", {
             method: "POST",
-            body: formData, 
+            body: productData,
         });
 
         if (response.ok) {
@@ -56,6 +57,7 @@ export const createProductThunk = (formData) => async (dispatch) => {
         console.log(error);
     }
 };
+
 
 //! --------------------------------------------------------------------
 
