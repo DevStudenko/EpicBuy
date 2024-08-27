@@ -13,19 +13,46 @@ const CreateProduct = () => {
     const [quantity, setQuantity] = useState('');
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
+    const [isUploading, setIsUploading] = useState(false);
+
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        setIsUploading(true);
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch('/api/images/new', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            setPreviewImgUrl(data.img_url);
+            setErrors({});
+        } else {
+            setErrors({ previewImgUrl: 'Failed to upload image. Please try again.' });
+        }
+
+        setIsUploading(false);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const errors = {};
-        if (!name.trim()) errors.name = 'Name cannot be empty or whitespace.';
-        if (!description.trim()) errors.description = 'Description cannot be empty or whitespace.';
-        if (!previewImgUrl.trim()) errors.previewImgUrl = 'Preview Image URL cannot be empty or whitespace.';
-        if (price <= 0) errors.price = 'Price must be greater than 0.';
-        if (quantity <= 0) errors.quantity = 'Quantity must be greater than 0.';
+        const validationErrors = {};
+        if (!name.trim()) validationErrors.name = 'Name cannot be empty or whitespace.';
+        if (!description.trim()) validationErrors.description = 'Description cannot be empty or whitespace.';
+        if (!previewImgUrl) validationErrors.previewImgUrl = 'Image is required and must be uploaded before submitting.';
+        if (price <= 0) validationErrors.price = 'Price must be greater than 0.';
+        if (quantity <= 0) validationErrors.quantity = 'Quantity must be greater than 0.';
 
-        if (Object.keys(errors).length > 0) {
-            setErrors(errors);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
             return;
         }
 
@@ -33,7 +60,7 @@ const CreateProduct = () => {
             name: name.trim(),
             description: description.trim(),
             price: parseFloat(price),
-            preview_img_url: previewImgUrl.trim(),
+            preview_img_url: previewImgUrl,  // Use the S3 URL returned from the image upload
             quantity: parseInt(quantity)
         };
 
@@ -88,13 +115,15 @@ const CreateProduct = () => {
                 </label>
                 {errors.price && <p className={styles.error}>{errors.price}</p>}
                 <label>
-                    Preview Image URL
+                    Preview Image
                     <input
-                        type="text"
-                        value={previewImgUrl}
-                        onChange={(e) => setPreviewImgUrl(e.target.value)}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileChange}
+                        required
                         className={styles.input}
                     />
+                    {isUploading && <p>Uploading image...</p>}
                 </label>
                 {errors.previewImgUrl && (
                     <p className={styles.error}>{errors.previewImgUrl}</p>
@@ -113,7 +142,7 @@ const CreateProduct = () => {
                 {errors.error && (
                     <p className={styles.error}>{errors.error}</p>
                 )}
-                <button type="submit" className={styles.submit}>Create Product</button>
+                <button type="submit" className={styles.submit} disabled={isUploading}>Create Product</button>
             </form>
         </div>
     );

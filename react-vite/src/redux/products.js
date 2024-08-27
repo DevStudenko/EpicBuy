@@ -35,21 +35,22 @@ export const getAllProductsThunk = () => async (dispatch) => {
         console.log(error);
     }
 };
+
 //! --------------------------------------------------------------------
-export const createProductThunk = (data) => async (dispatch) => {
+export const createProductThunk = (formData) => async (dispatch) => {
     try {
         const response = await fetch("/api/products", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+            body: formData, 
         });
 
         if (response.ok) {
             const data = await response.json();
             dispatch(action(CREATE, data));
             return data;
+        } else {
+            const errorData = await response.json();
+            return errorData.errors;
         }
     } catch (error) {
         console.log(error);
@@ -62,7 +63,6 @@ export const deleteProductThunk = (product) => async (dispatch) => {
     try {
         const response = await fetch(`/api/products/${product.id}`, {
             method: "DELETE",
-
         });
         if (response.ok) {
             dispatch(action(DELETE, product));
@@ -74,24 +74,26 @@ export const deleteProductThunk = (product) => async (dispatch) => {
 
 //! --------------------------------------------------------------------
 
-export const updateProductThunk = (product) => async (dispatch) => {
+export const updateProductThunk = (productId, formData) => async (dispatch) => {
     try {
-        const response = await fetch(`/api/products/${product.id}`, {
+        const response = await fetch(`/api/products/${productId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(product)
+            body: formData,
         });
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data);
             dispatch(action(UPDATE, data));
             return data;
+        } else {
+            const errorData = await response.json();
+            return errorData.errors;
         }
     } catch (error) {
         console.log(error);
     }
 };
+
 //! --------------------------------------------------------------------
 export const getProductByIdThunk = (productId) => async (dispatch) => {
     try {
@@ -105,7 +107,6 @@ export const getProductByIdThunk = (productId) => async (dispatch) => {
         console.log(error);
     }
 };
-
 
 //! --------------------------------------------------------------------
 //*                            Selectors
