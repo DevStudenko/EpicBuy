@@ -42,9 +42,12 @@ export const createProductThunk = (productData) => async (dispatch) => {
         console.log(productData);
         const response = await fetch("/api/products", {
             method: "POST",
-            body: productData,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(productData)
         });
-
+        console.log('!!!!!!!!!!response from api route is: ', response);
         if (response.ok) {
             const data = await response.json();
             dispatch(action(CREATE, data));

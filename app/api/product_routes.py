@@ -20,8 +20,9 @@ def get_product(id):
 @product_routes.route("", methods=['POST'])
 @login_required
 def create_product():
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!Inside of create product route!')
+    print('!!!!!!!!!!!!!!!!!!!!!!!!request is: ', request)
     data = request.get_json()
-
     # Extract data from the request
     name = data.get('name')
     description = data.get('description')
@@ -70,7 +71,8 @@ def update_product(id):
 
         # Handle image update if a new one is provided
         if new_preview_img_url and new_preview_img_url != product.preview_img_url:
-            if product.preview_img_url:
+            # Only attempt to remove the old image if it's from AWS S3
+            if product.preview_img_url and "your-s3-bucket-url" in product.preview_img_url:
                 remove_file_from_s3(product.preview_img_url)
             product.preview_img_url = new_preview_img_url
 
@@ -90,7 +92,8 @@ def delete_product(id):
     if not current_user.is_admin:
         return jsonify({"message": "Forbidden"}), 403
 
-    if product.preview_img_url:
+    # Check if the preview_img_url is from AWS S3 before attempting to delete
+    if product.preview_img_url and "http://epic-buy-bucket.s3.amazonaws.com" in product.preview_img_url:
         remove_file_from_s3(product.preview_img_url)
 
     db.session.delete(product)

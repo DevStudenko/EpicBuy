@@ -65,7 +65,9 @@ const CreateProduct = () => {
             quantity: parseInt(quantity)
         };
 
+        console.log('!!!!!!!!!!!!!!!New Product', newProduct);
         const serverResponse = await dispatch(createProductThunk(newProduct));
+        console.log('!!!!!!!!!!!!!!!serverReponse is: ', serverResponse);
 
         if (!serverResponse) {
             setErrors({ error: 'Something went wrong. Please try again.' });
