@@ -5,28 +5,30 @@ import { purchaseItemsThunk } from '../../../redux/purchases';
 import styles from "./Cart.module.css";
 import { useState, useEffect } from 'react';
 import { getAllCartItemsThunk } from '../../../redux/cart';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const items = useSelector(getCartItemsArray);
   const [subtotal, setSubtotal] = useState(0);
   const tax = "calculated at checkout"
   const total = subtotal;
 
   useEffect(() => {
-    if (!items || !items.length) {
-      dispatch(getAllCartItemsThunk())
-    }
+    dispatch(getAllCartItemsThunk())
+
     const newSubtotal = items.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
     setSubtotal(newSubtotal);
-  }, [items, dispatch]);
+  }, [dispatch]);
 
   const handlePurchase = async () => {
     const response = await dispatch(purchaseItemsThunk(items));
     if (response.errors) {
       alert(response.errors);
     } else {
-      window.location.href = response.url;  // Redirect to Stripe Checkout
+      // window.location.href = response.url;  // Redirect to Stripe Checkout
+      navigate('/create-checkout-session')
     }
   };
 
