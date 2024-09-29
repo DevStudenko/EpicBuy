@@ -97,6 +97,7 @@ def purchase_success():
 def purchase_items():
     data = request.json
     items = data.get('items', [])
+    lineItems = []
 
     if not items:
         return jsonify({"message": "No items to purchase"}), 400
@@ -108,6 +109,17 @@ def purchase_items():
 
         # Deduct product quantity
         product.quantity -= item['quantity']
+        lineItems.append({
+            'price_data': {
+                'currency': "usd",
+                'product_data': {
+                    'name': product.name,
+                    'images': [product.preview_img_url]
+                },
+                'unit_amount': int(product.price * 100)  # Stripe expects amount in cents
+            },
+            'quantity': item['quantity']
+        })
 
         # Create a purchase record
         purchase = Purchase(
@@ -120,7 +132,15 @@ def purchase_items():
 
     try:
         db.session.commit()
-        return jsonify({"message": "Purchase recorded successfully"}), 200
+        checkout_session = stripe.checkout.Session.create(
+        line_items=lineItems,
+        mode='payment',
+        automatic_tax={"enabled": True},
+        success_url=f"{BASE_URL}/success?session_id={{CHECKOUT_SESSION_ID}}",
+        cancel_url=f"{BASE_URL}/cancel",
+        )
+        return jsonify({'clientSecret': checkout_session.client_secret}), 200
+
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': str(e)}), 500

@@ -19,7 +19,6 @@ const action = (type, payload) => ({
 //! --------------------------------------------------------------------
 
 export const purchaseItemsThunk = (cartItems) => async (dispatch) => {
-    console.log('!!!!!!!!!!!!!!cart items is: ', cartItems)
     try {
         const response = await fetch('/api/purchases', {
             method: 'POST',

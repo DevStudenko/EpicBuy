@@ -1,39 +1,78 @@
-import { useCallback } from "react";
-import { loadStripe } from '@stripe/stripe-js';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout
-} from '@stripe/react-stripe-js';
+import React, { useState, useEffect } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-const publishableKey = import.meta.env.VITE_STRIPE_KEY;
-const stripePromise = loadStripe(publishableKey);
+const CheckoutForm = ({ items }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [clientSecret, setClientSecret] = useState('');
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(null);
 
-const Checkout = ({ items }) => {
-  const fetchClientSecret = useCallback(() => {
-    // Create a Checkout Session
-    return fetch("/api/purchases/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ items })  // Pass the items from props
+  useEffect(() => {
+    // Map items to the format expected by the backend
+    const formattedItems = items.map((item) => ({
+      product_id: item.product.id,
+      quantity: item.quantity,
+    }));
+
+    // Create PaymentIntent on component mount
+    fetch('/api/payments/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: formattedItems }),
     })
       .then((res) => res.json())
-      .then((data) => data.clientSecret);
+      .then((data) => {
+        if (data.clientSecret) {
+          setClientSecret(data.clientSecret);
+        } else if (data.message) {
+          setError(data.message);
+        }
+      })
+      .catch((err) => {
+        console.error('Error creating payment intent:', err);
+        setError('Failed to create payment intent.');
+      });
   }, [items]);
 
-  const options = { fetchClientSecret };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setProcessing(true);
+
+    if (!stripe || !elements) {
+      // Stripe.js has not loaded yet
+      setProcessing(false);
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+
+    const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: cardElement },
+    });
+
+    if (stripeError) {
+      setError(stripeError.message);
+      setProcessing(false);
+    } else {
+      if (paymentIntent.status === 'succeeded') {
+        // Payment succeeded
+        console.log('Payment succeeded:', paymentIntent);
+        setProcessing(false);
+      
+      }
+    }
+  };
 
   return (
-    <div id="checkout">
-      <EmbeddedCheckoutProvider
-        stripe={stripePromise}
-        options={options}
-      >
-        <EmbeddedCheckout />
-      </EmbeddedCheckoutProvider>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <CardElement options={{ hidePostalCode: true }} />
+      {error && <div className="error">{error}</div>}
+      <button type="submit" disabled={!stripe || processing || !clientSecret}>
+        {processing ? 'Processing…' : 'Pay'}
+      </button>
+    </form>
   );
 };
 
-export default Checkout;
+export default CheckoutForm;
