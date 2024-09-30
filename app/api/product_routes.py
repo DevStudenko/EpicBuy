@@ -20,8 +20,6 @@ def get_product(id):
 @product_routes.route("", methods=['POST'])
 @login_required
 def create_product():
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!Inside of create product route!')
-    print('!!!!!!!!!!!!!!!!!!!!!!!!request is: ', request)
     data = request.get_json()
     # Extract data from the request
     name = data.get('name')
@@ -32,7 +30,6 @@ def create_product():
 
     if not name or not description or not price or not preview_img_url or not quantity:
         return jsonify({"message": "All fields are required"}), 400
-    print('!!!!!!!!!!!!!!!!!!!!!!!!Product', data)
     try:
         # Create and save the new product
         product = Product(

@@ -1,10 +1,16 @@
-from flask import Blueprint, request, jsonify
-from app.models import db, Product
-from flask_login import login_required
+from flask import Flask, Blueprint, request, jsonify
+from flask_cors import CORS
+from flask_login import login_required, current_user
+from app.models import Product
 import stripe
 import os
 
 stripe.api_key = os.environ.get("STRIPE_SECRET")
+
+# Set the base URL based on the environment
+BASE_URL = "http://localhost:5173"
+if os.environ.get("FLASK_ENV") == 'production':
+    BASE_URL = os.environ.get("REACT_APP_BASE_URL")
 
 payment_routes = Blueprint('payments', __name__)
 
@@ -15,20 +21,18 @@ def create_payment_intent():
     items = data.get('items', [])
 
     if not items:
-        return jsonify({"message": "No items to purchase"}), 400
+        return jsonify({"error": "No items to purchase"}), 400
 
-    total_amount = 0
+    # Calculate total amount (in cents)
+    total_amount_cents = 0
     for item in items:
         product = Product.query.get(item['product_id'])
         if not product:
-            return jsonify({"message": f"Product with ID {item['product_id']} not found"}), 404
+            return jsonify({"error": f"Product with ID {item['product_id']} not found"}), 404
         if product.quantity < item['quantity']:
-            return jsonify({"message": f"Not enough stock for {product.name}"}), 400
+            return jsonify({"error": f"Not enough stock for {product.name}"}), 400
 
-        total_amount += product.price * item['quantity']
-
-    # Convert total amount to cents
-    total_amount_cents = int(total_amount * 100)
+        total_amount_cents += int(product.price * item['quantity'] * 100)
 
     try:
         # Create a PaymentIntent with the order amount and currency
@@ -36,8 +40,13 @@ def create_payment_intent():
             amount=total_amount_cents,
             currency='usd',
             automatic_payment_methods={'enabled': True},
+            automatic_tax={'enabled': True},
+            # Optionally, include customer information
+            metadata={'user_id': current_user.id},
         )
-        return jsonify({'clientSecret': intent.client_secret}), 200
-
+        return jsonify({
+            'clientSecret': intent.client_secret
+        }), 200
     except Exception as e:
-        return jsonify({'message': str(e)}), 500
+        print(f"Error creating PaymentIntent: {e}")
+        return jsonify({'error': str(e)}), 500

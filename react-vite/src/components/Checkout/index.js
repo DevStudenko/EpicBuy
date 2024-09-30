@@ -1,2 +1,2 @@
-import CheckoutForm from "./Checkout";
-export default CheckoutForm;
+import Checkout from "./Checkout";
+export default Checkout;
